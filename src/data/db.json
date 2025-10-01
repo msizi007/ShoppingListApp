@@ -1,23 +1,4 @@
 {
-  "users": [
-    {
-      "id": "4941",
-      "name": "",
-      "surname": "",
-      "cellNumber": "",
-      "username": "",
-      "password": "",
-      "isLoggedIn": false
-    },
-    {
-      "id": "d62e",
-      "name": "",
-      "surname": "",
-      "cellNumber": "",
-      "username": "",
-      "password": "",
-      "isLoggedIn": false
-    }
-  ],
+  "users": [],
   "items": []
 }

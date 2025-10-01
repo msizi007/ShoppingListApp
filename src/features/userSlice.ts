@@ -24,7 +24,7 @@ export const initialState: userState = {
 //   password: string;
 // };
 
-// Thunk
+// Thunks
 export const register = createAsyncThunk(
   "user/register",
   async (user: userState, { rejectWithValue }) => {
@@ -36,6 +36,23 @@ export const register = createAsyncThunk(
         return rejectWithValue(
           error.response?.data || "Could not register user"
         );
+      }
+      return rejectWithValue("An unkown error occurred");
+    }
+  }
+);
+
+export const login = createAsyncThunk(
+  "user/login",
+  async (user: userState, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/users?username=${user.username}&password=${user.password}`
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        return rejectWithValue(error.response?.data || "Could not login user");
       }
       return rejectWithValue("An unkown error occurred");
     }

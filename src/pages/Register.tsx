@@ -1,12 +1,10 @@
-import type { userState } from "../features/login";
-import { useState, type MouseEvent } from "react";
-import { register } from "../features/login";
+import { useState } from "react";
+import { register } from "../features/userSlice";
 import { useAppDispatch } from "../../reduxHooks";
 import InputField from "../components/InputField/InputField";
 import Button from "../components/Button/Button";
 
 export default function Register() {
-  const [user, setUser] = useState<userState | null>(null);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [cellNumber, setCellNumber] = useState("");
