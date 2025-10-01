@@ -1,4 +1,5 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 export type userState = {
   name: string;
@@ -18,22 +19,37 @@ export const initialState: userState = {
   isLoggedIn: false,
 };
 
-type LoginPayload = {
-  username: string;
-  password: string;
-};
+// type LoginPayload = {
+//   username: string;
+//   password: string;
+// };
+
+// Thunk
+export const register = createAsyncThunk(
+  "user/register",
+  async (user: userState, { rejectWithValue }) => {
+    try {
+      const response = await axios.post("http://localhost:3000/users", user);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        return rejectWithValue(
+          error.response?.data || "Could not register user"
+        );
+      }
+      return rejectWithValue("An unkown error occurred");
+    }
+  }
+);
 
 export const userSlice = createSlice({
-  name: "counter",
+  name: "user",
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<LoginPayload>) => {
-      console.log(action.payload.username, action.payload.password);
-    },
-    register: () => {},
     updateUser: () => {},
   },
+  extraReducers: () => {},
 });
 
-export const { login, register, updateUser } = userSlice.actions;
+export const { updateUser } = userSlice.actions;
 export default userSlice.reducer;
