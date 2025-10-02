@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { register } from "../features/userSlice";
-import { useAppDispatch } from "../../reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../reduxHooks";
 import InputField from "../components/InputField/InputField";
 import Button from "../components/Button/Button";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -11,6 +12,8 @@ export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useAppDispatch();
+  const isRegistered = useAppSelector((state) => state.user.isRegistered);
+  const navigate = useNavigate();
 
   function onHandleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
@@ -21,9 +24,9 @@ export default function Register() {
         cellNumber,
         username,
         password,
-        isLoggedIn: false,
       })
     );
+    if (isRegistered) navigate("/login");
   }
   return (
     <div className="RegisterPage">
