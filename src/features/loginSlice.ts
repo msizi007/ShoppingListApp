@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { isValidEmail } from "../utils/emailValidator";
+import { comparePassword } from "../utils/encypt";
 
 export type loginState = {
   email: string;
@@ -33,21 +34,25 @@ export const loginUser = createAsyncThunk(
       const response = await axios.get(`http://localhost:3000/users`);
       console.log({ response });
       // if response is not empty accept else ... reject
-      if (response.data.length > 0) {
-        console.log(".... data > 0");
-        console.log(
-          response.data.filter(
-            (u: loginState) =>
-              u.email == user.email && u.password == user.password
-          )
-        );
 
-        const foundUser = response.data.filter(
-          (u: loginState) =>
-            u.email == user.email && u.password == user.password
-        );
-        console.log({ foundUser });
-        if (foundUser.length > 0) return foundUser;
+      if (response.data.length > 0) {
+        console.log("... > 0");
+
+        let foundUser = null;
+        for (const u of response.data) {
+          console.log(u);
+
+          if (
+            u.email === user.email &&
+            (await comparePassword(user.password, u.password))
+          ) {
+            foundUser = u;
+            break;
+          }
+        }
+        console.log(foundUser);
+
+        if (foundUser) return foundUser;
         else return rejectWithValue("Invalid username or password");
       } else {
         return rejectWithValue("User not found!");
