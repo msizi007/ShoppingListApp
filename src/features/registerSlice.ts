@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { isValidEmail } from "../utils/emailValidator";
+import { hashPassword } from "../utils/encypt";
 
 export type registerState = {
   name: string;
@@ -51,7 +52,9 @@ export const registerUser = createAsyncThunk(
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/users", user);
+      const securePassword = await hashPassword(user.password);
+      const newUser = { ...user, password: securePassword };
+      const response = await axios.post("http://localhost:3000/users", newUser);
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
