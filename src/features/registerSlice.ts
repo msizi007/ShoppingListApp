@@ -39,17 +39,29 @@ export const registerUser = createAsyncThunk(
     // If email provided is not valid.. reject
     if (!isValidEmail(user.email))
       return rejectWithValue("Invalid email address");
-    try {
-      const response = await axios.post("http://localhost:3000/users", user);
-      return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        return rejectWithValue(
-          error.response?.data || "Could not register user"
-        );
-      }
-      return rejectWithValue("An unkown error occurred");
+    // if password is less than 6 characters... reject
+    if (user.password.length < 6)
+      return rejectWithValue("Password must be at least 6 characters");
+    // if email already exists ... reject
+    const res = await axios.get(
+      `http://localhost:3000/users?email=${user.email}`
+    );
+    if (res.data.length > 0) {
+      return rejectWithValue("Email already exists");
     }
+
+    if (res.data.length > 0 && res.data.email == user.email)
+      try {
+        const response = await axios.post("http://localhost:3000/users", user);
+        return response.data;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          return rejectWithValue(
+            error.response?.data || "Could not register user"
+          );
+        }
+        return rejectWithValue("An unkown error occurred");
+      }
   }
 );
 

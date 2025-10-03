@@ -8,6 +8,14 @@
       "username": "1",
       "password": "1",
       "isLoggedIn": false
+    },
+    {
+      "id": "81cb",
+      "name": "m",
+      "surname": "m",
+      "cellNumber": "m",
+      "email": "msizi@gmail.com",
+      "password": "123"
     }
   ],
   "items": []

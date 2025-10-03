@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../reduxHooks";
 import InputField from "../components/InputField/InputField";
 import Button from "../components/Button/Button";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../features/registerSlice";
+import Popup from "../components/Popup/Popup";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -53,7 +54,7 @@ export default function Register() {
         />
         <InputField
           type="email"
-          placeholder="Username"
+          placeholder="Email"
           field={email}
           setField={setEmail}
         />
@@ -62,7 +63,13 @@ export default function Register() {
           placeholder="Password"
           field={password}
           setField={setPassword}
+          hint="Password must be at least 6 characters"
         />
+
+        {errorMessage && <Popup type="danger" text={errorMessage} />}
+        <p className="mini-text">
+          Already have an account? <Link to="/login">login</Link> instead
+        </p>
         <Button
           text="Register"
           onClick={(e) => onHandleSubmit(e)}
