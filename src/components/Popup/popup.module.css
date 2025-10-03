@@ -1,0 +1,8 @@
+.popup {
+  padding: 1rem;
+  margin: 0.5rem 0;
+}
+.danger {
+  border: 1px solid red;
+  background-color: #fdd;
+}

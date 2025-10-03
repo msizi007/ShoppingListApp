@@ -1,32 +1,37 @@
-import { useState } from "react";
-import { register } from "../features/userSlice";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../reduxHooks";
 import InputField from "../components/InputField/InputField";
 import Button from "../components/Button/Button";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { registerUser } from "../features/registerSlice";
+import Popup from "../components/Popup/Popup";
 
 export default function Register() {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [cellNumber, setCellNumber] = useState("");
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useAppDispatch();
-  const isRegistered = useAppSelector((state) => state.user.isRegistered);
+  const isRegistered = useAppSelector((state) => state.register.isRegistered);
+  const errorMessage = useAppSelector((state) => state.register.errorMessage);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isRegistered) navigate("/login");
+  }, [isRegistered]);
 
   function onHandleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     dispatch(
-      register({
+      registerUser({
         name,
         surname,
         cellNumber,
-        username,
+        email,
         password,
       })
     );
-    if (isRegistered) navigate("/login");
   }
   return (
     <div className="RegisterPage">
@@ -51,17 +56,23 @@ export default function Register() {
           setField={setCellNumber}
         />
         <InputField
-          type="text"
-          placeholder="Username"
-          field={username}
-          setField={setUsername}
+          type="email"
+          placeholder="Email"
+          field={email}
+          setField={setEmail}
         />
         <InputField
-          type="text"
+          type="password"
           placeholder="Password"
           field={password}
           setField={setPassword}
+          hint="Password must be at least 6 characters"
         />
+
+        {errorMessage && <Popup type="danger" text={errorMessage} />}
+        <p className="mini-text">
+          Already have an account? <Link to="/login">login</Link> instead
+        </p>
         <Button
           text="Register"
           onClick={(e) => onHandleSubmit(e)}
