@@ -8,40 +8,6 @@
       "username": "1",
       "password": "1",
       "isLoggedIn": false
-    },
-    {
-      "id": "7418",
-      "name": "2",
-      "surname": "2",
-      "cellNumber": "2",
-      "username": "2",
-      "password": "2",
-      "isLoggedIn": false
-    },
-    {
-      "id": "4b79",
-      "name": "ascsc",
-      "surname": "ass",
-      "cellNumber": "ssa",
-      "username": "asassasasa",
-      "password": "sasssa",
-      "isLoggedIn": false
-    },
-    {
-      "id": "58cf",
-      "name": "12",
-      "surname": "12",
-      "cellNumber": "12",
-      "username": "12",
-      "password": "12"
-    },
-    {
-      "id": "d6c7",
-      "name": "12",
-      "surname": "12",
-      "cellNumber": "12",
-      "username": "12",
-      "password": "12"
     }
   ],
   "items": []
