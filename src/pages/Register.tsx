@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../reduxHooks";
 import InputField from "../components/InputField/InputField";
 import Button from "../components/Button/Button";
@@ -17,6 +17,10 @@ export default function Register() {
   const errorMessage = useAppSelector((state) => state.register.errorMessage);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (isRegistered) navigate("/login");
+  }, [isRegistered]);
+
   function onHandleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     dispatch(
@@ -28,7 +32,6 @@ export default function Register() {
         password,
       })
     );
-    if (isRegistered) navigate("/login");
   }
   return (
     <div className="RegisterPage">
@@ -59,7 +62,7 @@ export default function Register() {
           setField={setEmail}
         />
         <InputField
-          type="text"
+          type="password"
           placeholder="Password"
           field={password}
           setField={setPassword}

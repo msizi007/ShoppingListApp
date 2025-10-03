@@ -2,15 +2,17 @@ import { useEffect, useState } from "react";
 import InputField from "../components/InputField/InputField";
 import Button from "../components/Button/Button";
 import { useAppDispatch, useAppSelector } from "../../reduxHooks";
-import { useNavigate } from "react-router-dom";
-import { login } from "../features/userSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../features/loginSlice";
+import Popup from "../components/Popup/Popup";
 
 export default function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
+  const isLoggedIn = useAppSelector((state) => state.login.isLoggedIn);
+  const errorMessage = useAppSelector((state) => state.login.errorMessage);
 
   useEffect(() => {
     if (isLoggedIn) navigate("/home");
@@ -18,26 +20,32 @@ export default function Login() {
 
   function onHandleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    dispatch(login({ username, password }));
+    dispatch(loginUser({ email, password }));
   }
   return (
     <div className="LoginPage">
       <div className="container">
         <h1>Login</h1>
         <InputField
-          type="text"
-          field={username}
-          setField={setUsername}
-          placeholder="Name"
+          type="email"
+          field={email}
+          setField={setEmail}
+          placeholder="Email"
         />
         <InputField
-          type="text"
-          placeholder="Surname"
+          type="password"
+          placeholder="Password"
           field={password}
           setField={setPassword}
+          hint="Password must be at least 6 characters"
         />
+        {errorMessage && <Popup type="danger" text={errorMessage} />}
+        <p className="mini-text">
+          Don't have an account? <Link to="/register">register</Link> now.
+        </p>
+
         <Button
-          text="Register"
+          text="Login"
           onClick={(e) => onHandleSubmit(e)}
           width={100}
           color="white"

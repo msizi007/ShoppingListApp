@@ -1,21 +1,20 @@
 {
   "users": [
     {
-      "id": "fcd9",
-      "name": "1",
-      "surname": "1",
-      "cellNumber": "1",
-      "username": "1",
-      "password": "1",
-      "isLoggedIn": false
+      "id": "4906",
+      "name": "msizi",
+      "surname": "mwelase",
+      "cellNumber": "0634673607",
+      "email": "msizimwelase007@gmail.com",
+      "password": "Mapunu@007"
     },
     {
-      "id": "81cb",
-      "name": "m",
-      "surname": "m",
-      "cellNumber": "m",
-      "email": "msizi@gmail.com",
-      "password": "123"
+      "id": "9d2e",
+      "name": "sabelo",
+      "surname": "gumede",
+      "cellNumber": "11223",
+      "email": "sabelo@gmail.com",
+      "password": "123456"
     }
   ],
   "items": []

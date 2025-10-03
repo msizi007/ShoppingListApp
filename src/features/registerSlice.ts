@@ -16,8 +16,8 @@ export const initialState: registerState = {
   name: "",
   surname: "",
   cellNumber: "",
-  email: "Msizi",
-  password: "123456",
+  email: "",
+  password: "",
   isRegistered: false,
   errorMessage: "",
 };
@@ -50,18 +50,17 @@ export const registerUser = createAsyncThunk(
       return rejectWithValue("Email already exists");
     }
 
-    if (res.data.length > 0 && res.data.email == user.email)
-      try {
-        const response = await axios.post("http://localhost:3000/users", user);
-        return response.data;
-      } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-          return rejectWithValue(
-            error.response?.data || "Could not register user"
-          );
-        }
-        return rejectWithValue("An unkown error occurred");
+    try {
+      const response = await axios.post("http://localhost:3000/users", user);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        return rejectWithValue(
+          error.response?.data || "Could not register user"
+        );
       }
+      return rejectWithValue("An unkown error occurred");
+    }
   }
 );
 
