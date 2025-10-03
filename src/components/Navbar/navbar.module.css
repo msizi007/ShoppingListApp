@@ -1,0 +1,29 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  font-family: system-ui;
+  background-color: #1a1d29;
+  color: white;
+}
+.title {
+  font-size: 1.5rem;
+}
+.right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.button {
+  border: none;
+  background-color: #1a1d29;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: white;
+  background-color: #1a1d29;
+}
+.button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
