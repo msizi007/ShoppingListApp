@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
-interface userState {
+export interface userState {
   id: string;
   name: string;
   surname: string;
@@ -20,13 +21,14 @@ const initialState: userState = {
   isLoggedIn: false,
 };
 
-export const getUser = createAsyncThunk(
+export const getUserProfile = createAsyncThunk(
   "profile/getUser",
   async (id: string, { rejectWithValue }) => {
     try {
-      const res = await fetch(`http://localhost:3000/api/users/${id}`);
-      if (res.ok) {
-        const user = await res.json();
+      const res = await axios(`http://localhost:3000/users/${id}`);
+
+      if (res.data) {
+        const user = await res.data;
         return user;
       }
       return rejectWithValue("User not found");
@@ -42,7 +44,7 @@ export const profileSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getUser.fulfilled, (state, action) => {
+      .addCase(getUserProfile.fulfilled, (state, action) => {
         state.id = action.payload.id;
         state.name = action.payload.name;
         state.surname = action.payload.surname;
@@ -51,7 +53,7 @@ export const profileSlice = createSlice({
         state.password = action.payload.password;
         state.isLoggedIn = action.payload.isLoggedIn;
       })
-      .addCase(getUser.rejected, (state) => {
+      .addCase(getUserProfile.rejected, (state) => {
         state.isLoggedIn = false;
       });
   },

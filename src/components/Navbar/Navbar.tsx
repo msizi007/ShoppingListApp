@@ -3,6 +3,7 @@ import styles from "./navbar.module.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
+import { setUser } from "../../utils/storage";
 
 interface Props {
   isLoggedIn: boolean;
@@ -37,7 +38,12 @@ export default function Navbar(props: Props) {
                   >
                     View Profile
                   </button>
-                  <button className={styles.tooltipButton} onclick={() => {}}>
+                  <button
+                    className={styles.tooltipButton}
+                    onClick={() => {
+                      setUser({ id: "", isLoggedIn: false });
+                    }}
+                  >
                     Log out
                   </button>
                 </div>

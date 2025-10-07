@@ -10,6 +10,7 @@ interface Props {
   setField: Dispatch<SetStateAction<string>>;
   icon?: IconType;
   hint?: string;
+  isDisabled?: boolean;
 }
 
 export default function InputField(props: Props) {
@@ -27,6 +28,7 @@ export default function InputField(props: Props) {
         value={props.field}
         onChange={(e) => props.setField(e.target.value)}
         required
+        disabled={props.isDisabled}
       />
       <p className={styles.hint}>{props.hint}</p>
     </div>
