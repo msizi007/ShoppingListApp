@@ -76,7 +76,7 @@ export const loginSlice = createSlice({
         const user = action.payload;
         state.userId = user.id;
 
-        setUser({ userId: user.id, isLoggedIn: true });
+        setUser({ id: user.id, isLoggedIn: true });
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoggedIn = false;
