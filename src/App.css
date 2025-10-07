@@ -41,3 +41,24 @@ body,
   padding: 0.5rem 1rem;
   border-radius: 2rem;
 }
+.tagContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  max-width: 100%; /* prevent overflow */
+  margin-top: 1rem;
+}
+.tag {
+  padding: 0.2rem 0.6rem;
+  background-color: var(--color-gray, #d9d9d9);
+  border-radius: 2rem;
+  font-size: 0.7rem;
+  white-space: nowrap; /* prevent text wrap inside a tag */
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  flex: wrap;
+}
+
+.tag:hover {
+  background-color: #bdbdbd;
+}

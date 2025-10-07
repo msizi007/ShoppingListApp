@@ -6,6 +6,8 @@ import InputField from "../components/InputField/InputField";
 export default function Home() {
   const [isCreating, setIsCreating] = useState(false);
   const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [category, setCategory] = useState<string>("");
 
   const lists = 1;
   return (
@@ -50,27 +52,17 @@ export default function Home() {
           <InputField
             type="text"
             placeholder="Optional Notes.."
-            field={name}
-            setField={setName}
+            field={description}
+            setField={setDescription}
           />
-          <div className="d-flex flex-row tagContainer">
-            <span className="tag">Stock</span>
-            <span className="tag">Stock</span>
-            <span className="tag">Stock</span>
-            <span className="tag">Stock</span>
-            <span className="tag">Stock</span>
-            <span className="tag">Stock</span>
-            <span className="tag">Stock</span>
-            <span className="tag">Stock</span>
-            <span className="tag">Stock</span>
-            <span className="tag">Stock</span>
+          <div className="d-flex flex-row tagContainer my-4">
+            <span className="tag">Groceries</span>
+            <span className="tag">Household</span>
+            <span className="tag">Personal Care</span>
+            <span className="tag">Electronics and Tech</span>
+            <span className="tag">Clothing</span>
+            <span className="tag">Event</span>
           </div>
-          <InputField
-            type="text"
-            placeholder="Image URL.."
-            field={name}
-            setField={setName}
-          />
           <button className="btn btn-primary">Add</button>
         </form>
       </Modal>

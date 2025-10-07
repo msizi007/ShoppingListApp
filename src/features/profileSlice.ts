@@ -38,6 +38,37 @@ export const getUserProfile = createAsyncThunk(
   }
 );
 
+export const updateUserProfile = createAsyncThunk(
+  "profile/updateUser",
+  async (
+    user: {
+      id: string;
+      name: string;
+      surname: string;
+      cellNumber: string;
+      email: string;
+    },
+    { rejectWithValue }
+  ) => {
+    try {
+      const res = await axios.patch(`http://localhost:3000/users/${user.id}`, {
+        name: user.name,
+        surname: user.surname,
+        cellNumber: user.cellNumber,
+        email: user.email,
+      });
+
+      if (res.data) {
+        const updatedUser = await res.data;
+        return updatedUser;
+      }
+      return rejectWithValue("User not found");
+    } catch (error) {
+      return rejectWithValue("User not found");
+    }
+  }
+);
+
 export const profileSlice = createSlice({
   name: "profile",
   initialState,
@@ -55,6 +86,12 @@ export const profileSlice = createSlice({
       })
       .addCase(getUserProfile.rejected, (state) => {
         state.isLoggedIn = false;
+      })
+      .addCase(updateUserProfile.fulfilled, () => {
+        alert("User updated successfully");
+      })
+      .addCase(updateUserProfile.rejected, () => {
+        alert("User update failed");
       });
   },
 });
