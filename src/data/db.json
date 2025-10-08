@@ -15,7 +15,46 @@
       "cellNumber": "1",
       "email": "1@gmail.com",
       "password": "$2b$10$xiQzKjkkwz2AmzzJcqhpTuYIi9H0I0Hb7xbEhP9nbW.jXv7NY09M2"
+    },
+    {
+      "id": "6501",
+      "name": "Sbonelo",
+      "surname": "Mwelase",
+      "cellNumber": "1000000000",
+      "email": "msizi007@gmail.com",
+      "password": "$2b$10$VLEmb4kBID3W8yMqGJcnGOdoAX42J1/U/8LNOfjqOIwSQD.9CM3Iq"
     }
   ],
-  "items": []
+  "lists": [
+    {
+      "id": "013c",
+      "name": "4154",
+      "description": "sdgsdfgfdbgdffd",
+      "category": "Clothing",
+      "userId": "6501",
+      "quantity": 0,
+      "items": [],
+      "dateCreated": "2025-10-08T14:08:39.465Z"
+    },
+    {
+      "id": "164d",
+      "name": "5455",
+      "description": "vsddsfvdsgvdsadfhgfd",
+      "category": "Electronics",
+      "userId": "6501",
+      "quantity": 0,
+      "items": [],
+      "dateCreated": "2025-10-08T14:08:49.754Z"
+    },
+    {
+      "id": "f25c",
+      "name": "6555",
+      "description": "sdfvgdsdgfafdsgsdagsdsd",
+      "category": "Personal Care",
+      "userId": "6501",
+      "quantity": 0,
+      "items": [],
+      "dateCreated": "2025-10-08T14:08:59.645Z"
+    }
+  ]
 }

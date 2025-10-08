@@ -2,12 +2,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { isValidEmail } from "../utils/emailValidator";
 import { comparePassword } from "../utils/encypt";
+import { setUser } from "../utils/storage";
 
 export type loginState = {
   email: string;
   password: string;
   isLoggedIn?: boolean;
   errorMessage?: string;
+  userId?: string;
 };
 
 export const initialState: loginState = {
@@ -32,16 +34,12 @@ export const loginUser = createAsyncThunk(
 
     try {
       const response = await axios.get(`http://localhost:3000/users`);
-      console.log({ response });
+
       // if response is not empty accept else ... reject
 
       if (response.data.length > 0) {
-        console.log("... > 0");
-
         let foundUser = null;
         for (const u of response.data) {
-          console.log(u);
-
           if (
             u.email === user.email &&
             (await comparePassword(user.password, u.password))
@@ -50,7 +48,6 @@ export const loginUser = createAsyncThunk(
             break;
           }
         }
-        console.log(foundUser);
 
         if (foundUser) return foundUser;
         else return rejectWithValue("Invalid username or password");
@@ -68,19 +65,32 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+// logout User
+export const logoutUser = createAsyncThunk("login/logoutUser", async () => {
+  setUser({ id: "", isLoggedIn: false });
+  return;
+});
+
 export const loginSlice = createSlice({
   name: "login",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(loginUser.fulfilled, (state) => {
+      .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoggedIn = true;
+        const user = action.payload;
+        state.userId = user.id;
+
+        setUser({ id: user.id, isLoggedIn: true });
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoggedIn = false;
         state.errorMessage =
           (action.payload as string) || "User Registration Failed";
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.isLoggedIn = false;
       });
   },
 });
