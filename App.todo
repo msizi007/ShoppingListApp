@@ -1,2 +1,3 @@
 - Create Tag Component & Button Component
 - Make it responsive...
+- remove quantity in db and calculate it by items.length

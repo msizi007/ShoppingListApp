@@ -20,10 +20,38 @@
       "id": "6501",
       "name": "Sbonelo",
       "surname": "Mwelase",
-      "cellNumber": "112",
+      "cellNumber": "1000000000",
       "email": "msizi007@gmail.com",
       "password": "$2b$10$VLEmb4kBID3W8yMqGJcnGOdoAX42J1/U/8LNOfjqOIwSQD.9CM3Iq"
     }
   ],
-  "items": []
+  "lists": [
+    {
+      "id": "2e62",
+      "name": "1",
+      "description": ".....",
+      "category": "Household",
+      "userId": "6501",
+      "quantity": 0,
+      "items": []
+    },
+    {
+      "id": "0b1f",
+      "name": "2",
+      "description": ".....",
+      "category": "",
+      "userId": "6501",
+      "quantity": 0,
+      "items": []
+    },
+    {
+      "id": "7618",
+      "name": "3",
+      "description": "hggngh",
+      "category": "",
+      "userId": "6501",
+      "quantity": 0,
+      "items": []
+    }
+  ]
 }

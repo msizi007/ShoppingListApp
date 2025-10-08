@@ -1,13 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import Modal from "../components/Modal/Modal";
 import InputField from "../components/InputField/InputField";
+import { useAppDispatch, useAppSelector } from "../../reduxHooks";
+import {
+  addShoppingList,
+  getShoppingLists,
+} from "../features/shoppingListSlice";
+import { getUser } from "../utils/storage";
+import Card from "../components/Card/Card";
 
 export default function Home() {
   const [isCreating, setIsCreating] = useState(false);
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [category, setCategory] = useState<string>("");
+  const dispatch = useAppDispatch();
+  const userId = getUser().id;
+
+  useEffect(() => {
+    dispatch(getShoppingLists(userId));
+  }, []);
+
+  const shoppingLists = useAppSelector((state) => state.shoppingLists.list);
 
   const lists = 1;
   return (
@@ -26,8 +41,17 @@ export default function Home() {
           Add New
         </button>
       </div>
-      {lists ? (
-        0
+      {shoppingLists ? (
+        <div className="row mx-2">
+          {shoppingLists.map((list: any) => (
+            <Card
+              title={list.name}
+              quantity={list.items.length}
+              category={list.category}
+              description={list.description}
+            />
+          ))}
+        </div>
       ) : (
         <>
           <h2 className="text-center mt-5">Nothing Available at the moment.</h2>
@@ -41,8 +65,8 @@ export default function Home() {
         >
           X
         </button>
-        <form className="mt-2">
-          <h6>Add New List</h6>
+        <form>
+          <h6 className="my-4">Add New List</h6>
           <InputField
             type="text"
             placeholder="Name.."
@@ -56,14 +80,46 @@ export default function Home() {
             setField={setDescription}
           />
           <div className="d-flex flex-row tagContainer my-4">
-            <span className="tag">Groceries</span>
-            <span className="tag">Household</span>
-            <span className="tag">Personal Care</span>
-            <span className="tag">Electronics and Tech</span>
-            <span className="tag">Clothing</span>
-            <span className="tag">Event</span>
+            <span className="tag" onClick={() => setCategory("Groceries")}>
+              Groceries
+            </span>
+            <span className="tag" onClick={() => setCategory("Household")}>
+              Household
+            </span>
+            <span className="tag" onClick={() => setCategory("Personal Care")}>
+              Personal Care
+            </span>
+            <span
+              className="tag"
+              onClick={() => setCategory("Electronics and Tech")}
+            >
+              Electronics and Tech
+            </span>
+            <span className="tag" onClick={() => setCategory("Clothing")}>
+              Clothing
+            </span>
+            <span className="tag" onClick={() => setCategory("Event")}>
+              Event
+            </span>
           </div>
-          <button className="btn btn-primary">Add</button>
+          <button
+            className="btn btn-primary"
+            onClick={() =>
+              dispatch(
+                addShoppingList({
+                  name,
+                  description,
+                  category,
+                  userId,
+                  quantity: 0,
+                  items: [],
+                  dateCreated: new Date(),
+                })
+              )
+            }
+          >
+            Add
+          </button>
         </form>
       </Modal>
     </div>
