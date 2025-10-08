@@ -27,61 +27,14 @@
   ],
   "lists": [
     {
-      "id": "2e62",
+      "id": "fc55",
       "name": "1",
-      "description": ".....",
-      "category": "Household",
-      "userId": "6501",
-      "quantity": 0,
-      "items": []
-    },
-    {
-      "id": "0b1f",
-      "name": "2",
-      "description": ".....",
-      "category": "",
-      "userId": "6501",
-      "quantity": 0,
-      "items": []
-    },
-    {
-      "id": "7618",
-      "name": "3",
-      "description": "hggngh",
-      "category": "",
-      "userId": "6501",
-      "quantity": 0,
-      "items": []
-    },
-    {
-      "id": "6bf0",
-      "name": "",
-      "description": "",
-      "category": "",
+      "description": "sgdfsgs",
+      "category": "Groceries",
       "userId": "6501",
       "quantity": 0,
       "items": [],
-      "dateCreated": "2025-10-08T08:06:06.985Z"
-    },
-    {
-      "id": "166c",
-      "name": "",
-      "description": "",
-      "category": "",
-      "userId": "6501",
-      "quantity": 0,
-      "items": [],
-      "dateCreated": "2025-10-08T08:10:48.354Z"
-    },
-    {
-      "id": "5e1e",
-      "name": "czxcx",
-      "description": "cvxcxx",
-      "category": "Electronics",
-      "userId": "6501",
-      "quantity": 0,
-      "items": [],
-      "dateCreated": "2025-10-08T09:10:48.761Z"
+      "dateCreated": "2025-10-08T12:42:22.364Z"
     }
   ]
 }

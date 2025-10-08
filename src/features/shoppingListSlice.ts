@@ -8,12 +8,19 @@ interface Item {
   dateCreated: Date;
 }
 
+export type Category =
+  | "Groceries"
+  | "Clothing"
+  | "Electronics"
+  | "Party"
+  | "Personal Care";
+
 interface shoppingList {
   id?: string;
   name: string;
   description: string;
   quantity: number;
-  category: string;
+  category: Category;
   userId: string;
   items: Item[];
   dateCreated: Date;
@@ -21,6 +28,7 @@ interface shoppingList {
 
 interface ShoppingLists {
   list: shoppingList[];
+  errorMessage?: string;
 }
 
 export const initialState: ShoppingLists = {
@@ -48,11 +56,28 @@ export const getShoppingLists = createAsyncThunk(
   }
 );
 
+// CREATE LIST
 export const addShoppingList = createAsyncThunk(
   "lists/addList",
   async (list: shoppingList, { rejectWithValue }) => {
+    if (!list.name || !list.description) {
+      return rejectWithValue("All input fields are required.");
+    }
     try {
       const res = await axios.post(`http://localhost:3000/lists`, list);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue("Lists not found");
+    }
+  }
+);
+
+// DELETE LIST
+export const deleteShoppingList = createAsyncThunk(
+  "lists/deleteList",
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const res = await axios.delete(`http://localhost:3000/lists/${id}`);
       return res.data;
     } catch (error) {
       return rejectWithValue("Lists not found");
@@ -73,6 +98,16 @@ export const shoppingListSlice = createSlice({
       })
       .addCase(addShoppingList.fulfilled, () => {
         alert("List added successfully");
+      })
+      .addCase(addShoppingList.rejected, (state, action) => {
+        alert(action.payload as string);
+      })
+      .addCase(deleteShoppingList.fulfilled, (state, action) => {
+        alert("List deleted successfully");
+        state.list = action.payload;
+      })
+      .addCase(deleteShoppingList.rejected, () => {
+        alert("List delete failed");
       });
   },
 });

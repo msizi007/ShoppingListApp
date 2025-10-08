@@ -5,21 +5,22 @@ import InputField from "../components/InputField/InputField";
 import { useAppDispatch, useAppSelector } from "../../reduxHooks";
 import {
   addShoppingList,
+  type Category,
+  deleteShoppingList,
   getShoppingLists,
 } from "../features/shoppingListSlice";
 import { getUser } from "../utils/storage";
 import ShoppingListCard from "../components/Card/ShoppingListCard";
-import Tag from "../components/Tag/Tag";
 import SingleSelectorTag from "../components/Tag/SingleSelectorTag";
 
 export default function Home() {
   const [isCreating, setIsCreating] = useState(false);
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [category, setCategory] = useState<string>("");
+  const [category, setCategory] = useState<Category>("Groceries");
   const dispatch = useAppDispatch();
   const userId = getUser().id;
-  const tags = [
+  const tags: Category[] = [
     "Groceries",
     "Clothing",
     "Electronics",
@@ -27,13 +28,12 @@ export default function Home() {
     "Personal Care",
   ];
 
-  useEffect(() => {
-    dispatch(getShoppingLists(userId));
-  }, []);
-
   const shoppingLists = useAppSelector((state) => state.shoppingLists.list);
 
-  const lists = 1;
+  useEffect(() => {
+    dispatch(getShoppingLists(userId));
+  }, [shoppingLists]);
+
   return (
     <div className="homePage">
       <Navbar isLoggedIn={true} />
@@ -50,7 +50,7 @@ export default function Home() {
           Add New
         </button>
       </div>
-      {shoppingLists ? (
+      {shoppingLists.length > 0 ? (
         <div className="row mx-2">
           {shoppingLists.map((list: any) => (
             <ShoppingListCard
@@ -59,6 +59,8 @@ export default function Home() {
               quantity={list.items.length}
               category={list.category}
               description={list.description}
+              dateCreated={list.dateCreated}
+              onDelete={() => dispatch(deleteShoppingList(list.id))}
             />
           ))}
         </div>
@@ -90,7 +92,7 @@ export default function Home() {
             setField={setDescription}
           />
           <div className="d-flex flex-row tagContainer my-4">
-            {tags.map((tag: string) => (
+            {tags.map((tag: Category) => (
               <SingleSelectorTag
                 key={tag}
                 text={tag}
@@ -101,7 +103,7 @@ export default function Home() {
           </div>
           <button
             className="btn btn-primary"
-            onClick={() =>
+            onClick={() => {
               dispatch(
                 addShoppingList({
                   name,
@@ -112,8 +114,12 @@ export default function Home() {
                   items: [],
                   dateCreated: new Date(),
                 })
-              )
-            }
+              );
+              // reset the states
+              setIsCreating(false);
+              setName("");
+              setDescription("");
+            }}
           >
             Add
           </button>

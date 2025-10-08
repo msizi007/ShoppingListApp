@@ -1,7 +1,9 @@
+import type { Category } from "../../features/shoppingListSlice";
+
 interface Props {
-  text: string;
-  state: string;
-  setState: React.Dispatch<React.SetStateAction<string>>;
+  text: Category;
+  state: Category;
+  setState: React.Dispatch<React.SetStateAction<Category>>;
 }
 
 export default function SingleSelectorTag(props: Props) {
