@@ -1,3 +1,4 @@
 - Create Tag Component & Button Component
 - Make it responsive...
 - remove quantity in db and calculate it by items.length
+- Fix: when i add a new list (empty field) alert sucess message appears... prevent this..

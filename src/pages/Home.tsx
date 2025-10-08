@@ -8,7 +8,7 @@ import {
   getShoppingLists,
 } from "../features/shoppingListSlice";
 import { getUser } from "../utils/storage";
-import Card from "../components/Card/Card";
+import ShoppingListCard from "../components/Card/ShoppingListCard";
 
 export default function Home() {
   const [isCreating, setIsCreating] = useState(false);
@@ -44,7 +44,8 @@ export default function Home() {
       {shoppingLists ? (
         <div className="row mx-2">
           {shoppingLists.map((list: any) => (
-            <Card
+            <ShoppingListCard
+              key={list.id}
               title={list.name}
               quantity={list.items.length}
               category={list.category}
@@ -82,9 +83,6 @@ export default function Home() {
           <div className="d-flex flex-row tagContainer my-4">
             <span className="tag" onClick={() => setCategory("Groceries")}>
               Groceries
-            </span>
-            <span className="tag" onClick={() => setCategory("Household")}>
-              Household
             </span>
             <span className="tag" onClick={() => setCategory("Personal Care")}>
               Personal Care
