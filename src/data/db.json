@@ -18,8 +18,8 @@
     },
     {
       "id": "6501",
-      "name": "Sbonelo",
-      "surname": "Mwelase",
+      "name": "Sbonelo111",
+      "surname": "Mwelase22",
       "cellNumber": "1000000000",
       "email": "msizi007@gmail.com",
       "password": "$2b$10$VLEmb4kBID3W8yMqGJcnGOdoAX42J1/U/8LNOfjqOIwSQD.9CM3Iq"
@@ -72,6 +72,16 @@
       "quantity": 0,
       "items": [],
       "dateCreated": "2025-10-08T08:10:48.354Z"
+    },
+    {
+      "id": "5e1e",
+      "name": "czxcx",
+      "description": "cvxcxx",
+      "category": "Electronics",
+      "userId": "6501",
+      "quantity": 0,
+      "items": [],
+      "dateCreated": "2025-10-08T09:10:48.761Z"
     }
   ]
 }

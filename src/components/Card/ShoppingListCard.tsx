@@ -1,6 +1,6 @@
 import { BsEyeFill, BsPenFill, BsTrashFill } from "react-icons/bs";
 import clothingImg from "./../../assets/clothing.jpg";
-import eletronicsImg from "./../../assets/eletronicsTech.jpg";
+import eletronicsImg from "./../../assets/electronicsTech.jpg";
 import groceriesImg from "./../../assets/groceries.jpg";
 import partyImg from "./../../assets/party.jpg";
 import personalCareImg from "./../../assets/personalCare.jpg";
@@ -16,11 +16,7 @@ export default function ShoppingListCard(props: Props) {
   return (
     <div className="col-4 d-flex">
       <div className="card w-100 d-flex flex-column">
-        <img
-          className="card-img-top"
-          src=""
-          alt="Card image cap"
-        />
+        <img className="card-img-top" src={groceriesImg} alt="Card image cap" />
         <div className="card-body flex-grow-1">
           <h5 className="card-title">{props.title}</h5>
           <p className="card-text text-muted">{props.description}</p>

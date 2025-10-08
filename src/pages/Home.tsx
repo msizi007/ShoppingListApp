@@ -9,6 +9,8 @@ import {
 } from "../features/shoppingListSlice";
 import { getUser } from "../utils/storage";
 import ShoppingListCard from "../components/Card/ShoppingListCard";
+import Tag from "../components/Tag/Tag";
+import SingleSelectorTag from "../components/Tag/SingleSelectorTag";
 
 export default function Home() {
   const [isCreating, setIsCreating] = useState(false);
@@ -17,6 +19,13 @@ export default function Home() {
   const [category, setCategory] = useState<string>("");
   const dispatch = useAppDispatch();
   const userId = getUser().id;
+  const tags = [
+    "Groceries",
+    "Clothing",
+    "Electronics",
+    "Party",
+    "Personal Care",
+  ];
 
   useEffect(() => {
     dispatch(getShoppingLists(userId));
@@ -81,24 +90,14 @@ export default function Home() {
             setField={setDescription}
           />
           <div className="d-flex flex-row tagContainer my-4">
-            <span className="tag" onClick={() => setCategory("Groceries")}>
-              Groceries
-            </span>
-            <span className="tag" onClick={() => setCategory("Personal Care")}>
-              Personal Care
-            </span>
-            <span
-              className="tag"
-              onClick={() => setCategory("Electronics and Tech")}
-            >
-              Electronics and Tech
-            </span>
-            <span className="tag" onClick={() => setCategory("Clothing")}>
-              Clothing
-            </span>
-            <span className="tag" onClick={() => setCategory("Event")}>
-              Event
-            </span>
+            {tags.map((tag: string) => (
+              <SingleSelectorTag
+                key={tag}
+                text={tag}
+                state={category}
+                setState={setCategory}
+              />
+            ))}
           </div>
           <button
             className="btn btn-primary"
