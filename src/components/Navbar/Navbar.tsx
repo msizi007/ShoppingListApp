@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import { setUser } from "../../utils/storage";
+import { useAppDispatch } from "../../../reduxHooks";
+import { logoutUser } from "../../features/loginSlice";
 
 interface Props {
   isLoggedIn: boolean;
@@ -12,12 +14,19 @@ interface Props {
 export default function Navbar(props: Props) {
   const [showToolTip, setShowToolTip] = useState(false);
   const navigate = useNavigate();
+  console.log("isLogged: ", props.isLoggedIn);
+  const dispatch = useAppDispatch();
 
   return (
     <div className={styles.navbar}>
       <div style={{ display: "flex", gap: ".5rem" }}>
         <FaShoppingCart size={25} />
-        <h2 className={styles.title} onClick={() => navigate("/")}>
+        <h2
+          className={styles.title}
+          onClick={() => {
+            props.isLoggedIn ? navigate("/home") : navigate("/");
+          }}
+        >
           Shopify
         </h2>
       </div>
@@ -41,7 +50,8 @@ export default function Navbar(props: Props) {
                   <button
                     className={styles.tooltipButton}
                     onClick={() => {
-                      setUser({ id: "", isLoggedIn: false });
+                      dispatch(logoutUser())
+                      navigate("/");
                     }}
                   >
                     Log out

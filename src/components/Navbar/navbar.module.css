@@ -9,6 +9,10 @@
 .title {
   font-size: 1.5rem;
   font-weight: 900;
+  user-select: none;
+}
+.title:hover {
+  cursor: pointer;
 }
 .right {
   display: flex;

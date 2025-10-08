@@ -65,6 +65,12 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+// logout User
+export const logoutUser = createAsyncThunk("login/logoutUser", async () => {
+  setUser({ id: "", isLoggedIn: false });
+  return;
+});
+
 export const loginSlice = createSlice({
   name: "login",
   initialState,
@@ -82,6 +88,9 @@ export const loginSlice = createSlice({
         state.isLoggedIn = false;
         state.errorMessage =
           (action.payload as string) || "User Registration Failed";
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.isLoggedIn = false;
       });
   },
 });

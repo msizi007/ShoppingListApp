@@ -12,6 +12,7 @@ import {
 import { getUser } from "../utils/storage";
 import ShoppingListCard from "../components/Card/ShoppingListCard";
 import SingleSelectorTag from "../components/Tag/SingleSelectorTag";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [isCreating, setIsCreating] = useState(false);
@@ -19,6 +20,7 @@ export default function Home() {
   const [description, setDescription] = useState<string>("");
   const [category, setCategory] = useState<Category>("Groceries");
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const userId = getUser().id;
   const tags: Category[] = [
     "Groceries",
@@ -29,6 +31,10 @@ export default function Home() {
   ];
 
   const shoppingLists = useAppSelector((state) => state.shoppingLists.list);
+
+  useEffect(() => {
+    if (!getUser().isLoggedIn) navigate("/");
+  }, []);
 
   useEffect(() => {
     dispatch(getShoppingLists(userId));

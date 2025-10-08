@@ -6,11 +6,19 @@ import { useAppDispatch, useAppSelector } from "../../reduxHooks";
 import { getUserProfile, updateUserProfile } from "../features/profileSlice";
 import { getUser } from "../utils/storage";
 import Navbar from "../components/Navbar/Navbar";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const userId = getUser().id;
+
+  console.log(getUser().isLoggedIn);
+
+  useEffect(() => {
+    if (!getUser().isLoggedIn) navigate("/");
+  }, []);
 
   useEffect(() => {
     if (!userId) return;
@@ -18,8 +26,8 @@ export default function Profile() {
   }, [userId]);
 
   // user state
-  const _name = useAppSelector((state) => state.profile.name);
-  const _surname = useAppSelector((state) => state.profile.surname);
+  let _name = useAppSelector((state) => state.profile.name);
+  let _surname = useAppSelector((state) => state.profile.surname);
   const _cellNumber = useAppSelector((state) => state.profile.cellNumber);
   const _email = useAppSelector((state) => state.profile.email);
 
@@ -29,11 +37,13 @@ export default function Profile() {
     if (_surname) setSurname(_surname);
     if (_cellNumber) setCellNumber(_cellNumber);
     if (_email) setEmail(_email);
+    if (_name && _surname) setFullName(_name + " " + _surname);
   }, [_name, _surname, _cellNumber, _email]);
 
   // states
   const [name, setName] = useState(_name);
   const [surname, setSurname] = useState(_surname);
+  const [fullName, setFullName] = useState(_name + " " + _surname);
   const [cellNumber, setCellNumber] = useState(_cellNumber);
   const [email, setEmail] = useState(_email);
   const [isNotEditable, setNotIsEditable] = useState(true);
@@ -54,9 +64,7 @@ export default function Profile() {
               }}
             />
           </div>
-          <h2 className="text-center">
-            {_name} {_surname}
-          </h2>
+          <h2 className="text-center">{fullName}</h2>
           <InputField
             type="text"
             placeholder="Name"
