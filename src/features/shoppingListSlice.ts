@@ -1,13 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-interface Item {
-  id?: string;
-  name: string;
-  quantity: number;
-  dateCreated: Date;
-}
-
 export type Category =
   | "Groceries"
   | "Clothing"
@@ -15,14 +8,12 @@ export type Category =
   | "Party"
   | "Personal Care";
 
-interface shoppingList {
+export interface shoppingList {
   id?: string;
   name: string;
   description: string;
-  quantity: number;
   category: Category;
   userId: string;
-  items: Item[];
   dateCreated: Date;
 }
 

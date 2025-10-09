@@ -37,24 +37,43 @@
       "dateCreated": "2025-10-08T14:08:39.465Z"
     },
     {
-      "id": "164d",
-      "name": "5455",
-      "description": "vsddsfvdsgvdsadfhgfd",
-      "category": "Electronics",
+      "id": "0556",
+      "name": "5147",
+      "description": "dfgdgfdgdfg",
+      "category": "Party",
       "userId": "6501",
-      "quantity": 0,
-      "items": [],
-      "dateCreated": "2025-10-08T14:08:49.754Z"
+      "dateCreated": "2025-10-09T07:02:55.162Z"
     },
     {
-      "id": "f25c",
-      "name": "6555",
-      "description": "sdfvgdsdgfafdsgsdagsdsd",
+      "id": "6ae3",
+      "name": "9521",
+      "description": "dsdsdsd",
       "category": "Personal Care",
       "userId": "6501",
-      "quantity": 0,
-      "items": [],
-      "dateCreated": "2025-10-08T14:08:59.645Z"
+      "dateCreated": "2025-10-09T07:06:50.956Z"
+    }
+  ],
+  "items": [
+    {
+      "id": "4944",
+      "name": "14858",
+      "quantity": "2",
+      "listId": "013c",
+      "dateCreated": "2025-10-09T07:42:45.578Z"
+    },
+    {
+      "id": "64e2",
+      "name": "14858",
+      "quantity": "2",
+      "listId": "013c",
+      "dateCreated": "2025-10-09T07:43:03.109Z"
+    },
+    {
+      "id": "91fd",
+      "name": "14858",
+      "quantity": "2",
+      "listId": "013c",
+      "dateCreated": "2025-10-09T07:43:05.525Z"
     }
   ]
 }

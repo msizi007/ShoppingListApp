@@ -13,6 +13,7 @@ import { getUser } from "../utils/storage";
 import ShoppingListCard from "../components/Card/ShoppingListCard";
 import SingleSelectorTag from "../components/Tag/SingleSelectorTag";
 import { useNavigate } from "react-router-dom";
+import { getItemCount, getItems } from "../features/itemSlice";
 
 export default function Home() {
   const [isCreating, setIsCreating] = useState(false);
@@ -31,6 +32,7 @@ export default function Home() {
   ];
 
   const shoppingLists = useAppSelector((state) => state.shoppingLists.list);
+  const items = useAppSelector((state) => state.items.list);
 
   useEffect(() => {
     if (!getUser().isLoggedIn) navigate("/");
@@ -39,6 +41,13 @@ export default function Home() {
   useEffect(() => {
     dispatch(getShoppingLists(userId));
   }, [shoppingLists]);
+
+  useEffect(() => {
+    // Fetch items for all shopping lists
+    shoppingLists.forEach((list: any) => {
+      dispatch(getItems(list.id));
+    });
+  }, [shoppingLists.length]);
 
   return (
     <div className="homePage">
@@ -58,17 +67,24 @@ export default function Home() {
       </div>
       {shoppingLists.length > 0 ? (
         <div className="row mx-2">
-          {shoppingLists.map((list: any) => (
-            <ShoppingListCard
-              key={list.id}
-              title={list.name}
-              quantity={list.items.length}
-              category={list.category}
-              description={list.description}
-              dateCreated={list.dateCreated}
-              onDelete={() => dispatch(deleteShoppingList(list.id))}
-            />
-          ))}
+          {shoppingLists.map((list: any) => {
+            const itemCount = items.filter(
+              (item: any) => item.listId === list.id
+            ).length;
+
+            return (
+              <ShoppingListCard
+                id={list.id}
+                key={list.id}
+                title={list.name}
+                quantity={itemCount}
+                category={list.category}
+                description={list.description}
+                dateCreated={list.dateCreated}
+                onDelete={() => dispatch(deleteShoppingList(list.id))}
+              />
+            );
+          })}
         </div>
       ) : (
         <>
@@ -116,8 +132,6 @@ export default function Home() {
                   description,
                   category,
                   userId,
-                  quantity: 0,
-                  items: [],
                   dateCreated: new Date(),
                 })
               );
