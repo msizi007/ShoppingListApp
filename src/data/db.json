@@ -1,79 +1,78 @@
 {
   "users": [
     {
-      "id": "12c6",
-      "name": "ms",
-      "surname": "ms",
-      "cellNumber": "123",
-      "email": "ms@gmail.com",
-      "password": "$2b$10$GouU85u.6ZM4/2gfba.RZ.qeyxy0Bc0zOJ9owcIJazfrxX8WuHYpC"
-    },
-    {
-      "id": "0ae1",
-      "name": "1",
-      "surname": "1",
-      "cellNumber": "1",
-      "email": "1@gmail.com",
-      "password": "$2b$10$xiQzKjkkwz2AmzzJcqhpTuYIi9H0I0Hb7xbEhP9nbW.jXv7NY09M2"
-    },
-    {
-      "id": "6501",
-      "name": "Sbonelo",
-      "surname": "Mwelase",
-      "cellNumber": "1000000000",
-      "email": "msizi007@gmail.com",
-      "password": "$2b$10$VLEmb4kBID3W8yMqGJcnGOdoAX42J1/U/8LNOfjqOIwSQD.9CM3Iq"
+      "id": "59cd",
+      "name": "msizi",
+      "surname": "mwelase",
+      "cellNumber": "0634673607",
+      "email": "msizimwelase007@gmail.com",
+      "password": "$2b$10$F4O2jim9CDzJ5jx/q55LOOxdiYVWWCvYXhuEpROLCMV1j/W.o1hiu"
     }
   ],
   "lists": [
     {
-      "id": "013c",
-      "name": "4154",
-      "description": "sdgsdfgfdbgdffd",
+      "id": "b2a1",
+      "name": "Stationary Sa January",
+      "description": "uma sekuvulwa izkole ngonyaka ozayo",
+      "category": "Stationery",
+      "userId": "59cd",
+      "dateCreated": "Thu Oct 09 2025 16:02:12 GMT+0200 (South Africa Standard Time)"
+    },
+    {
+      "id": "5719",
+      "name": "Laptop yeskole",
+      "description": "Ngidinga i laptop entsha",
+      "category": "Electronics",
+      "userId": "59cd",
+      "dateCreated": "Thu Oct 09 2025 15:27:05 GMT+0200 (South Africa Standard Time)"
+    },
+    {
+      "id": "5ab3",
+      "name": "December Cloths...",
+      "description": "for festive",
       "category": "Clothing",
-      "userId": "6501",
-      "quantity": 0,
-      "items": [],
-      "dateCreated": "2025-10-08T14:08:39.465Z"
+      "userId": "59cd",
+      "dateCreated": "Thu Oct 09 2025 15:42:33 GMT+0200 (South Africa Standard Time)"
     },
     {
-      "id": "0556",
-      "name": "5147",
-      "description": "dfgdgfdgdfg",
+      "id": "e105",
+      "name": "Party ka Dan",
+      "description": "ngomhlaka 22 October",
       "category": "Party",
-      "userId": "6501",
-      "dateCreated": "2025-10-09T07:02:55.162Z"
+      "userId": "59cd",
+      "dateCreated": "Thu Oct 09 2025 15:49:13 GMT+0200 (South Africa Standard Time)"
     },
     {
-      "id": "6ae3",
-      "name": "9521",
-      "description": "dsdsdsd",
+      "id": "61f4",
+      "name": "Grocories for November",
+      "description": "R1500 to spend",
+      "category": "Groceries",
+      "userId": "59cd",
+      "dateCreated": "Thu Oct 09 2025 15:58:41 GMT+0200 (South Africa Standard Time)"
+    },
+    {
+      "id": "a2f2",
+      "name": "Personal Care Products",
+      "description": "Hygiene and Personal Care Products",
       "category": "Personal Care",
-      "userId": "6501",
-      "dateCreated": "2025-10-09T07:06:50.956Z"
+      "userId": "59cd",
+      "dateCreated": "Thu Oct 09 2025 16:01:54 GMT+0200 (South Africa Standard Time)"
     }
   ],
   "items": [
     {
-      "id": "64e2",
-      "name": "14858",
-      "quantity": "2",
-      "listId": "013c",
-      "dateCreated": "2025-10-09T07:43:03.109Z"
+      "id": "ae22",
+      "name": "Black Pens",
+      "quantity": "12",
+      "listId": "b2a1",
+      "dateCreated": "Thu Oct 09 2025 15:13:22 GMT+0200 (South Africa Standard Time)"
     },
     {
-      "id": "91fd",
-      "name": "14858",
-      "quantity": "2",
-      "listId": "013c",
-      "dateCreated": "2025-10-09T07:43:05.525Z"
-    },
-    {
-      "id": "f308",
-      "name": "fbdf",
-      "quantity": "4",
-      "listId": "013c",
-      "dateCreated": "2025-10-09T08:36:03.772Z"
+      "id": "06cf",
+      "name": "Rubber",
+      "quantity": "1",
+      "listId": "b2a1",
+      "dateCreated": "Thu Oct 09 2025 15:15:52 GMT+0200 (South Africa Standard Time)"
     }
   ]
 }

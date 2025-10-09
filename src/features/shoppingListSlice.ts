@@ -6,7 +6,8 @@ export type Category =
   | "Clothing"
   | "Electronics"
   | "Party"
-  | "Personal Care";
+  | "Personal Care"
+  | "Stationery";
 
 export interface shoppingList {
   id?: string;
@@ -21,11 +22,13 @@ interface ShoppingLists {
   current: shoppingList;
   list: shoppingList[];
   errorMessage?: string;
+  isLoading: boolean;
 }
 
 export const initialState: ShoppingLists = {
   list: [],
   current: {} as shoppingList,
+  isLoading: true,
 };
 
 export const getShoppingLists = createAsyncThunk(
@@ -36,6 +39,7 @@ export const getShoppingLists = createAsyncThunk(
 
       if (res.data) {
         const lists = await res.data;
+
         return lists.filter((list: shoppingList) => list.userId === userId);
       }
       return rejectWithValue("Lists not found");
@@ -91,6 +95,25 @@ export const deleteShoppingList = createAsyncThunk(
   }
 );
 
+export const updateShoppingList = createAsyncThunk(
+  "lists/updateList",
+  async (list: shoppingList, { rejectWithValue }) => {
+    console.log(list.id);
+
+    try {
+      const res = await axios.put(
+        `http://localhost:3000/lists/${list.id}`,
+        list
+      );
+      console.log(res.data, list.id);
+
+      return res.data;
+    } catch (error) {
+      return rejectWithValue("Lists not found");
+    }
+  }
+);
+
 export const shoppingListSlice = createSlice({
   name: "lists",
   initialState,
@@ -98,11 +121,18 @@ export const shoppingListSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getShoppingLists.fulfilled, (state, action) => {
-        if (action.payload.length > 0) {
-        }
-        state.list = action.payload;
+        if (action.payload.length > 0) state.list = action.payload;
+        state.isLoading = false;
       })
-      .addCase(addShoppingList.fulfilled, () => {
+      .addCase(getShoppingLists.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getShoppingLists.rejected, (state, action) => {
+        state.errorMessage = (action.payload as string) || "Lists not found";
+        state.isLoading = false;
+      })
+      .addCase(addShoppingList.fulfilled, (state, action) => {
+        state.list.push(action.payload);
         alert("List added successfully");
       })
       .addCase(addShoppingList.rejected, (state, action) => {

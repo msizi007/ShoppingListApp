@@ -61,6 +61,26 @@ export const deleteItem = createAsyncThunk(
   }
 );
 
+export const updateItem = createAsyncThunk(
+  "items/updateItem",
+  async (item: Item, { rejectWithValue }) => {
+
+
+    if (isNaN(Number(item.quantity)))
+      return rejectWithValue("Invalid quantity");
+    try {
+
+      const res = await axios.put(
+        `http://localhost:3000/items/${item.id}`,
+        item
+      );
+      return res.data;
+    } catch (error) {
+      return rejectWithValue("Item not updated");
+    }
+  }
+);
+
 export const itemSlice = createSlice({
   name: "items",
   initialState,
@@ -89,13 +109,21 @@ export const itemSlice = createSlice({
           (item: Item) => item.id !== action.payload.id
         );
         alert("Item deleted successfully");
+      })
+      .addCase(updateItem.fulfilled, (state, action) => {
+        state.list = state.list.map((item: Item) => {
+          if (item.id === action.payload.id) {
+            return action.payload;
+          }
+          return item;
+        });
+        alert("Item updated successfully");
       });
   },
 });
 
 // This is a reducer.... maybe...
 export const getItemCount = (listId: string) => (state: any) => {
-  console.log("items list...", state);
 
   return state.items.list.filter((item: Item) => item.listId === listId).length;
 };

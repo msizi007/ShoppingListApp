@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Navbar from "../components/Navbar/Navbar";
+import Navbar from "../components/Navbar";
 import Modal from "../components/Modal/Modal";
 import InputField from "../components/InputField/InputField";
 import { useAppDispatch, useAppSelector } from "../../reduxHooks";
@@ -29,6 +29,7 @@ export default function Home() {
     "Electronics",
     "Party",
     "Personal Care",
+    "Stationery",
   ];
 
   const shoppingLists = useAppSelector((state) => state.shoppingLists.list);
@@ -39,6 +40,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    dispatch(getShoppingLists(userId));
     if (shoppingLists.length > 0) {
       shoppingLists.forEach((list: any) => {
         dispatch(getItems(list.id));
@@ -46,8 +48,6 @@ export default function Home() {
     }
   }, [shoppingLists]);
   const items = useAppSelector((state) => state.items.list);
-
-  console.log("Home, items: ", items);
 
   return (
     <div className="homePage">
@@ -75,6 +75,8 @@ export default function Home() {
             return (
               <ShoppingListCard
                 id={list.id}
+                userId={list.userId}
+                list={shoppingLists}
                 key={list.id}
                 title={list.name}
                 quantity={itemCount}
@@ -100,7 +102,7 @@ export default function Home() {
           X
         </button>
         <form>
-          <h6 className="my-4">Add New List</h6>
+          <h4 className="my-4">Add New List</h4>
           <InputField
             type="text"
             placeholder="Name.."
@@ -126,6 +128,7 @@ export default function Home() {
           <button
             className="btn btn-primary"
             onClick={() => {
+              setIsCreating(false);
               dispatch(
                 addShoppingList({
                   name,

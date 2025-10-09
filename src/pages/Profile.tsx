@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../reduxHooks";
 
 import { getUserProfile, updateUserProfile } from "../features/profileSlice";
 import { getUser } from "../utils/storage";
-import Navbar from "../components/Navbar/Navbar";
+import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
