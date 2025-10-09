@@ -14,7 +14,6 @@ interface Props {
 export default function Navbar(props: Props) {
   const [showToolTip, setShowToolTip] = useState(false);
   const navigate = useNavigate();
-  console.log("isLogged: ", props.isLoggedIn);
   const dispatch = useAppDispatch();
 
   return (

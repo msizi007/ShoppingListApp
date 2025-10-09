@@ -18,12 +18,14 @@ export interface shoppingList {
 }
 
 interface ShoppingLists {
+  current: shoppingList;
   list: shoppingList[];
   errorMessage?: string;
 }
 
 export const initialState: ShoppingLists = {
   list: [],
+  current: {} as shoppingList,
 };
 
 export const getShoppingLists = createAsyncThunk(
@@ -34,11 +36,23 @@ export const getShoppingLists = createAsyncThunk(
 
       if (res.data) {
         const lists = await res.data;
-        console.log(
-          "filtered lists",
-          lists.filter((list: shoppingList) => list.userId === userId)
-        );
         return lists.filter((list: shoppingList) => list.userId === userId);
+      }
+      return rejectWithValue("Lists not found");
+    } catch (error) {
+      return rejectWithValue("Lists not found");
+    }
+  }
+);
+
+export const getSingleShoppingList = createAsyncThunk(
+  "lists/getSingleList",
+  async (listId: string, { rejectWithValue }) => {
+    try {
+      const res = await axios(`http://localhost:3000/lists/${listId}`);
+      if (res.data) {
+        const list = await res.data;
+        return list;
       }
       return rejectWithValue("Lists not found");
     } catch (error) {
@@ -99,6 +113,9 @@ export const shoppingListSlice = createSlice({
       })
       .addCase(deleteShoppingList.rejected, () => {
         alert("List delete failed");
+      })
+      .addCase(getSingleShoppingList.fulfilled, (state, action) => {
+        state.current = action.payload;
       });
   },
 });

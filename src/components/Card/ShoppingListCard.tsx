@@ -10,6 +10,7 @@ import { useState } from "react";
 import InputField from "../InputField/InputField";
 import { useAppDispatch } from "../../../reduxHooks";
 import { addItem } from "../../features/itemSlice";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   id: string;
@@ -43,6 +44,7 @@ export default function ShoppingListCard(props: Props) {
   }
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [isAdding, setIsAdding] = useState(false);
   const [name, setName] = useState<string>("");
   const [quantity, setQuantity] = useState("");
@@ -77,7 +79,10 @@ export default function ShoppingListCard(props: Props) {
           </button>
         </div>
         <div className="card-footer">
-          <button className="btn btn-md btn-outline-secondary mx-2">
+          <button
+            className="btn btn-md btn-outline-secondary mx-2"
+            onClick={() => navigate(`/listView/${props.id}`)}
+          >
             <BsEyeFill /> View
           </button>
           <button className="btn btn-md btn-outline-primary mx-2">

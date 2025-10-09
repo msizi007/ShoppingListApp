@@ -14,8 +14,6 @@ export default function Profile() {
 
   const userId = getUser().id;
 
-  console.log(getUser().isLoggedIn);
-
   useEffect(() => {
     if (!getUser().isLoggedIn) navigate("/");
   }, []);

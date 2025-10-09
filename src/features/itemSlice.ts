@@ -68,6 +68,7 @@ export const itemSlice = createSlice({
   },
 });
 
+// This is a reducer.... maybe...
 export const getItemCount = (listId: string) => (state: any) => {
   return state.items.list.filter((item: Item) => item.listId === listId).length;
 };
