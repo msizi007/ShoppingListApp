@@ -90,7 +90,12 @@ export default function ShoppingListCard(props: Props) {
           </button>
           <button
             className="btn btn-md btn-outline-danger mx-2"
-            onClick={() => props.onDelete()}
+            onClick={() => {
+              if (
+                window.confirm(`Are you sure about deleting list #${props.id}?`)
+              )
+                props.onDelete();
+            }}
           >
             <BsTrashFill /> Delete
           </button>
@@ -124,7 +129,7 @@ export default function ShoppingListCard(props: Props) {
                 name,
                 quantity,
                 listId: props.id,
-                dateCreated: new Date(),
+                dateCreated: new Date().toString(),
               })
             )
           }

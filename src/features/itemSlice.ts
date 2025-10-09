@@ -5,7 +5,7 @@ export interface Item {
   id?: string;
   name: string;
   quantity: string;
-  dateCreated: Date;
+  dateCreated: string;
   listId: string;
 }
 
@@ -49,6 +49,18 @@ export const addItem = createAsyncThunk(
   }
 );
 
+export const deleteItem = createAsyncThunk(
+  "items/deleteItem",
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const res = await axios.delete(`http://localhost:3000/items/${id}`);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue("Item not deleted");
+    }
+  }
+);
+
 export const itemSlice = createSlice({
   name: "items",
   initialState,
@@ -56,7 +68,14 @@ export const itemSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getItems.fulfilled, (state, action) => {
-        state.list = action.payload;
+        const newItems = action.payload;
+        const listId = newItems[0]?.listId;
+        if (listId) {
+          state.list = state.list.filter(
+            (item: Item) => item.listId !== listId
+          );
+        }
+        state.list = [...state.list, ...newItems];
       })
       .addCase(getItems.rejected, (state, action) => {
         state.errorMessage = (action.payload as string) || "Items not found";
@@ -64,12 +83,20 @@ export const itemSlice = createSlice({
       .addCase(addItem.fulfilled, (state, action) => {
         state.list.push(action.payload);
         alert("Item added successfully");
+      })
+      .addCase(deleteItem.fulfilled, (state, action) => {
+        state.list = state.list.filter(
+          (item: Item) => item.id !== action.payload.id
+        );
+        alert("Item deleted successfully");
       });
   },
 });
 
 // This is a reducer.... maybe...
 export const getItemCount = (listId: string) => (state: any) => {
+  console.log("items list...", state);
+
   return state.items.list.filter((item: Item) => item.listId === listId).length;
 };
 

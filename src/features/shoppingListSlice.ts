@@ -14,7 +14,7 @@ export interface shoppingList {
   description: string;
   category: Category;
   userId: string;
-  dateCreated: Date;
+  dateCreated: string;
 }
 
 interface ShoppingLists {
@@ -50,6 +50,7 @@ export const getSingleShoppingList = createAsyncThunk(
   async (listId: string, { rejectWithValue }) => {
     try {
       const res = await axios(`http://localhost:3000/lists/${listId}`);
+
       if (res.data) {
         const list = await res.data;
         return list;

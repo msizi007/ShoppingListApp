@@ -32,22 +32,22 @@ export default function Home() {
   ];
 
   const shoppingLists = useAppSelector((state) => state.shoppingLists.list);
-  const items = useAppSelector((state) => state.items.list);
 
   useEffect(() => {
     if (!getUser().isLoggedIn) navigate("/");
+    dispatch(getShoppingLists(userId));
   }, []);
 
   useEffect(() => {
-    dispatch(getShoppingLists(userId));
+    if (shoppingLists.length > 0) {
+      shoppingLists.forEach((list: any) => {
+        dispatch(getItems(list.id));
+      });
+    }
   }, [shoppingLists]);
+  const items = useAppSelector((state) => state.items.list);
 
-  useEffect(() => {
-    // Fetch items for all shopping lists
-    shoppingLists.forEach((list: any) => {
-      dispatch(getItems(list.id));
-    });
-  }, [shoppingLists.length]);
+  console.log("Home, items: ", items);
 
   return (
     <div className="homePage">
@@ -132,7 +132,7 @@ export default function Home() {
                   description,
                   category,
                   userId,
-                  dateCreated: new Date(),
+                  dateCreated: new Date().toString(),
                 })
               );
               // reset the states
