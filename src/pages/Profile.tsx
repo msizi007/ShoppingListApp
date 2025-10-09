@@ -49,8 +49,8 @@ export default function Profile() {
   return (
     <>
       <Navbar isLoggedIn={true} />
-      <div className="mx-4">
-        <div className=" mt-5 px-2">
+      <div className="profilePage mx-4">
+        <div className="container mt-5 px-2">
           <div className="d-flex justify-content-center m-2 mt-5">
             <BsPersonFill
               size={120}

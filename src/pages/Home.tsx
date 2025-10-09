@@ -8,12 +8,15 @@ import {
   type Category,
   deleteShoppingList,
   getShoppingLists,
+  sortByName,
 } from "../features/shoppingListSlice";
 import { getUser } from "../utils/storage";
 import ShoppingListCard from "../components/Card/ShoppingListCard";
 import SingleSelectorTag from "../components/Tag/SingleSelectorTag";
 import { useNavigate } from "react-router-dom";
 import { getItemCount, getItems } from "../features/itemSlice";
+import Filter from "../components/Filter";
+import { BsSearch } from "react-icons/bs";
 
 export default function Home() {
   const [isCreating, setIsCreating] = useState(false);
@@ -52,19 +55,32 @@ export default function Home() {
   return (
     <div className="homePage">
       <Navbar isLoggedIn={true} />
-      <div className="input-group flex-nowrap p-5">
-        <input type="text" className="form-control" placeholder="Search..." />
-        <button className="btn btn-outline-secondary" id="addon-wrapping">
-          Search
-        </button>
-        <button
-          className="btn btn-primary"
-          id="addon-wrapping"
-          onClick={() => setIsCreating(true)}
+
+      <div className="input-group input-group-lg p-5">
+        <span className="input-group-text bg-white border-end-0 text-muted">
+          <BsSearch />
+        </span>
+        <input
+          type="text"
+          className="form-control border-start-0"
+          placeholder="Search..."
+        />
+        <select
+          className="form-select border-start-0"
+          onChange={() => dispatch(sortByName())}
         >
-          Add New
+          <option className="text-muted">Sort By</option>
+          <option>Name</option>
+          <option>Category</option>
+          <option>Date</option>
+        </select>
+      </div>
+      <div className="d-flex justify-content-end my-2 mx-3">
+        <button className="btn btn-primary" onClick={() => setIsCreating(true)}>
+          Add List
         </button>
       </div>
+
       {shoppingLists.length > 0 ? (
         <div className="row mx-2">
           {shoppingLists.map((list: any) => {

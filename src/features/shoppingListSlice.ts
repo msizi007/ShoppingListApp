@@ -117,7 +117,11 @@ export const updateShoppingList = createAsyncThunk(
 export const shoppingListSlice = createSlice({
   name: "lists",
   initialState,
-  reducers: {},
+  reducers: {
+    sortByName: (state) => {
+      state.list = [...state.list].sort((a, b) => a.name.localeCompare(b.name));
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getShoppingLists.fulfilled, (state, action) => {
@@ -152,3 +156,5 @@ export const shoppingListSlice = createSlice({
 });
 
 export default shoppingListSlice.reducer;
+
+export const { sortByName } = shoppingListSlice.actions;

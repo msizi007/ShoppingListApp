@@ -24,9 +24,9 @@ export default function Login() {
     dispatch(loginUser({ email, password }));
   }
   return (
-    <div className="LoginPage">
+    <div className="loginPage">
       <div className="container">
-        <h1>Login</h1>
+        <h1 className="text-center my-3">Login</h1>
         <InputField
           type="email"
           field={email}

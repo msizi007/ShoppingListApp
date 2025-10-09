@@ -85,7 +85,7 @@ export default function ShoppingListCard(props: Props) {
   };
 
   return (
-    <div className="col-4 d-flex">
+    <div className="col-12 col-sm-6 col-lg-3 d-flex mb-4">
       <div className="card w-100 d-flex flex-column">
         <img className="card-img-top" src={cardImage} alt="Card image cap" />
         <div className="card-body  d-flex flex-column justify-content-end">

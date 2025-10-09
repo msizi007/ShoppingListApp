@@ -34,9 +34,9 @@ export default function Register() {
     );
   }
   return (
-    <div className="RegisterPage">
+    <div className="registerPage">
       <div className="container">
-        <h1>Register</h1>
+        <h1 className="text-center my-3">Register</h1>
         <InputField
           type="text"
           field={name}
