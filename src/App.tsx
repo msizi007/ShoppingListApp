@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import LandingPage from "./pages/LandingPage";
+import ListView from "./pages/ListView";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/listView/:id" element={<ListView />} />
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>
     </>

@@ -1,38 +1,34 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-interface Item {
-  id?: string;
-  name: string;
-  quantity: number;
-  dateCreated: Date;
-}
-
 export type Category =
   | "Groceries"
   | "Clothing"
   | "Electronics"
   | "Party"
-  | "Personal Care";
+  | "Personal Care"
+  | "Stationery";
 
-interface shoppingList {
+export interface shoppingList {
   id?: string;
   name: string;
   description: string;
-  quantity: number;
   category: Category;
   userId: string;
-  items: Item[];
-  dateCreated: Date;
+  dateCreated: string;
 }
 
 interface ShoppingLists {
+  current: shoppingList;
   list: shoppingList[];
   errorMessage?: string;
+  isLoading: boolean;
 }
 
 export const initialState: ShoppingLists = {
   list: [],
+  current: {} as shoppingList,
+  isLoading: true,
 };
 
 export const getShoppingLists = createAsyncThunk(
@@ -43,11 +39,25 @@ export const getShoppingLists = createAsyncThunk(
 
       if (res.data) {
         const lists = await res.data;
-        console.log(
-          "filtered lists",
-          lists.filter((list: shoppingList) => list.userId === userId)
-        );
+
         return lists.filter((list: shoppingList) => list.userId === userId);
+      }
+      return rejectWithValue("Lists not found");
+    } catch (error) {
+      return rejectWithValue("Lists not found");
+    }
+  }
+);
+
+export const getSingleShoppingList = createAsyncThunk(
+  "lists/getSingleList",
+  async (listId: string, { rejectWithValue }) => {
+    try {
+      const res = await axios(`http://localhost:3000/lists/${listId}`);
+
+      if (res.data) {
+        const list = await res.data;
+        return list;
       }
       return rejectWithValue("Lists not found");
     } catch (error) {
@@ -85,18 +95,48 @@ export const deleteShoppingList = createAsyncThunk(
   }
 );
 
+export const updateShoppingList = createAsyncThunk(
+  "lists/updateList",
+  async (list: shoppingList, { rejectWithValue }) => {
+    console.log(list.id);
+
+    try {
+      const res = await axios.put(
+        `http://localhost:3000/lists/${list.id}`,
+        list
+      );
+      console.log(res.data, list.id);
+
+      return res.data;
+    } catch (error) {
+      return rejectWithValue("Lists not found");
+    }
+  }
+);
+
 export const shoppingListSlice = createSlice({
   name: "lists",
   initialState,
-  reducers: {},
+  reducers: {
+    sortByName: (state) => {
+      state.list = [...state.list].sort((a, b) => a.name.localeCompare(b.name));
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getShoppingLists.fulfilled, (state, action) => {
-        if (action.payload.length > 0) {
-        }
-        state.list = action.payload;
+        if (action.payload.length > 0) state.list = action.payload;
+        state.isLoading = false;
       })
-      .addCase(addShoppingList.fulfilled, () => {
+      .addCase(getShoppingLists.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getShoppingLists.rejected, (state, action) => {
+        state.errorMessage = (action.payload as string) || "Lists not found";
+        state.isLoading = false;
+      })
+      .addCase(addShoppingList.fulfilled, (state, action) => {
+        state.list.push(action.payload);
         alert("List added successfully");
       })
       .addCase(addShoppingList.rejected, (state, action) => {
@@ -108,8 +148,13 @@ export const shoppingListSlice = createSlice({
       })
       .addCase(deleteShoppingList.rejected, () => {
         alert("List delete failed");
+      })
+      .addCase(getSingleShoppingList.fulfilled, (state, action) => {
+        state.current = action.payload;
       });
   },
 });
 
 export default shoppingListSlice.reducer;
+
+export const { sortByName } = shoppingListSlice.actions;

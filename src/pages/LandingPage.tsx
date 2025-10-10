@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
-import Navbar from "../components/Navbar/Navbar";
+import Navbar from "../components/Navbar";
 
 export default function LandingPage() {
   const navigate = useNavigate();
