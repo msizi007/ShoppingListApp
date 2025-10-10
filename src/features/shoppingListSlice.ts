@@ -21,12 +21,14 @@ export interface shoppingList {
 interface ShoppingLists {
   current: shoppingList;
   list: shoppingList[];
+  filteredList: shoppingList[];
   errorMessage?: string;
   isLoading: boolean;
 }
 
 export const initialState: ShoppingLists = {
   list: [],
+  filteredList: [],
   current: {} as shoppingList,
   isLoading: true,
 };
@@ -114,6 +116,32 @@ export const updateShoppingList = createAsyncThunk(
   }
 );
 
+// SEARCH
+async function findKeyword(data: shoppingList[], keyword: string) {
+  return data.filter((list: shoppingList) => {
+    return list.name.toLowerCase().includes(keyword.toLowerCase());
+  });
+}
+
+export const searchShoppingList = createAsyncThunk(
+  "lists/searchList",
+  async (name: string, { rejectWithValue }) => {
+    try {
+      const res = await axios(`http://localhost:3000/lists`);
+
+      if (res.data) {
+        const lists = await findKeyword(res.data, name);
+        console.log(lists);
+
+        return lists;
+      }
+      return rejectWithValue("Lists not found");
+    } catch (error) {
+      return rejectWithValue("Lists not found");
+    }
+  }
+);
+
 export const shoppingListSlice = createSlice({
   name: "lists",
   initialState,
@@ -151,6 +179,9 @@ export const shoppingListSlice = createSlice({
       })
       .addCase(getSingleShoppingList.fulfilled, (state, action) => {
         state.current = action.payload;
+      })
+      .addCase(searchShoppingList.fulfilled, (state, action) => {
+        state.filteredList = action.payload;
       });
   },
 });

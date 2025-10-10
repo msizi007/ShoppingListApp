@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import Modal from "../components/Modal/Modal";
 import InputField from "../components/InputField/InputField";
@@ -8,6 +8,7 @@ import {
   type Category,
   deleteShoppingList,
   getShoppingLists,
+  searchShoppingList,
   sortByName,
 } from "../features/shoppingListSlice";
 import { getUser } from "../utils/storage";
@@ -17,10 +18,13 @@ import { useNavigate } from "react-router-dom";
 import { getItemCount, getItems } from "../features/itemSlice";
 import Filter from "../components/Filter";
 import { BsSearch } from "react-icons/bs";
+import Footer from "../components/Footer/Footer";
 
 export default function Home() {
   const [isCreating, setIsCreating] = useState(false);
   const [name, setName] = useState<string>("");
+  const [searchKeyWord, setSearchKeyWord] = useState<string>("");
+
   const [description, setDescription] = useState<string>("");
   const [category, setCategory] = useState<Category>("Groceries");
   const dispatch = useAppDispatch();
@@ -40,6 +44,7 @@ export default function Home() {
   useEffect(() => {
     if (!getUser().isLoggedIn) navigate("/");
     dispatch(getShoppingLists(userId));
+    console.log(shoppingLists);
   }, []);
 
   useEffect(() => {
@@ -51,6 +56,9 @@ export default function Home() {
     }
   }, [shoppingLists]);
   const items = useAppSelector((state) => state.items.list);
+  const filteredList = useAppSelector(
+    (state) => state.shoppingLists.filteredList
+  );
 
   return (
     <div className="homePage">
@@ -64,6 +72,11 @@ export default function Home() {
           type="text"
           className="form-control border-start-0"
           placeholder="Search..."
+          value={searchKeyWord}
+          onChange={(e) => {
+            setSearchKeyWord(e.target.value);
+            dispatch(searchShoppingList(e.target.value));
+          }}
         />
         <select
           className="form-select border-start-0"
@@ -83,26 +96,47 @@ export default function Home() {
 
       {shoppingLists.length > 0 ? (
         <div className="row mx-2">
-          {shoppingLists.map((list: any) => {
-            const itemCount = items.filter(
-              (item: any) => item.listId === list.id
-            ).length;
+          {filteredList.length > 0
+            ? filteredList.map((list: any) => {
+                const itemCount = items.filter(
+                  (item: any) => item.listId === list.id
+                ).length;
 
-            return (
-              <ShoppingListCard
-                id={list.id}
-                userId={list.userId}
-                list={shoppingLists}
-                key={list.id}
-                title={list.name}
-                quantity={itemCount}
-                category={list.category}
-                description={list.description}
-                dateCreated={list.dateCreated}
-                onDelete={() => dispatch(deleteShoppingList(list.id))}
-              />
-            );
-          })}
+                return (
+                  <ShoppingListCard
+                    id={list.id}
+                    userId={list.userId}
+                    list={shoppingLists}
+                    key={list.id}
+                    title={list.name}
+                    quantity={itemCount}
+                    category={list.category}
+                    description={list.description}
+                    dateCreated={list.dateCreated}
+                    onDelete={() => dispatch(deleteShoppingList(list.id))}
+                  />
+                );
+              })
+            : shoppingLists.map((list: any) => {
+                const itemCount = items.filter(
+                  (item: any) => item.listId === list.id
+                ).length;
+
+                return (
+                  <ShoppingListCard
+                    id={list.id}
+                    userId={list.userId}
+                    list={shoppingLists}
+                    key={list.id}
+                    title={list.name}
+                    quantity={itemCount}
+                    category={list.category}
+                    description={list.description}
+                    dateCreated={list.dateCreated}
+                    onDelete={() => dispatch(deleteShoppingList(list.id))}
+                  />
+                );
+              })}
         </div>
       ) : (
         <>
@@ -164,6 +198,7 @@ export default function Home() {
           </button>
         </form>
       </Modal>
+      <Footer />
     </div>
   );
 }
