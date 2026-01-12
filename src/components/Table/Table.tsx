@@ -1,9 +1,5 @@
 import {
-  BsEyeFill,
   BsPenFill,
-  BsSortAlphaDown,
-  BsSortAlphaDownAlt,
-  BsSortAlphaUp,
   BsSortDown,
   BsSortNumericDown,
   BsSortNumericUp,
