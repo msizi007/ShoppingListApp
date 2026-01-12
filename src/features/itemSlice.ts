@@ -15,6 +15,8 @@ export interface Items {
   filterdList: Item[];
 }
 
+const BASE_URL = "https://shopping-json-server.onrender.com/items";
+
 export const initialState: Items = {
   list: [],
   filterdList: [],
@@ -24,7 +26,7 @@ export const getItems = createAsyncThunk(
   "items/getItems",
   async (listId: string, { rejectWithValue }) => {
     try {
-      const res = await axios(`http://localhost:3000/items?listId=${listId}`);
+      const res = await axios(`${BASE_URL}?listId=${listId}`);
 
       if (res.data) {
         const items = await res.data;
@@ -43,7 +45,7 @@ export const addItem = createAsyncThunk(
     if (isNaN(Number(item.quantity)))
       return rejectWithValue("Invalid quantity");
     try {
-      const res = await axios.post(`http://localhost:3000/items`, item);
+      const res = await axios.post(BASE_URL, item);
       return res.data;
     } catch (error) {
       return rejectWithValue("Item not added");
@@ -55,7 +57,7 @@ export const deleteItem = createAsyncThunk(
   "items/deleteItem",
   async (id: string, { rejectWithValue }) => {
     try {
-      const res = await axios.delete(`http://localhost:3000/items/${id}`);
+      const res = await axios.delete(`${BASE_URL}/${id}`);
       return res.data;
     } catch (error) {
       return rejectWithValue("Item not deleted");
@@ -69,10 +71,7 @@ export const updateItem = createAsyncThunk(
     if (isNaN(Number(item.quantity)))
       return rejectWithValue("Invalid quantity");
     try {
-      const res = await axios.put(
-        `http://localhost:3000/items/${item.id}`,
-        item
-      );
+      const res = await axios.put(`${BASE_URL}/${item.id}`, item);
       return res.data;
     } catch (error) {
       return rejectWithValue("Item not updated");
@@ -91,7 +90,7 @@ export const searchItems = createAsyncThunk(
   "items/searchItem",
   async (name: string, { rejectWithValue }) => {
     try {
-      const res = await axios(`http://localhost:3000/items`);
+      const res = await axios(BASE_URL);
       console.log(res.data);
 
       if (res.data) {
@@ -133,6 +132,7 @@ export const itemSlice = createSlice({
           (item: Item) => item.id !== action.payload.id
         );
         alert("Item deleted successfully");
+        window.location.reload();
       })
       .addCase(updateItem.fulfilled, (state, action) => {
         state.list = state.list.map((item: Item) => {

@@ -228,7 +228,6 @@ export default function ShoppingListCard(props: Props) {
               setIsEdditing(false);
               setName("");
               setDescription("");
-              window.location.reload();
             }}
           >
             Update

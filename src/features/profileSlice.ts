@@ -21,11 +21,13 @@ const initialState: userState = {
   isLoggedIn: false,
 };
 
+const BASE_URL = "https://shopping-json-server.onrender.com/users";
+
 export const getUserProfile = createAsyncThunk(
   "profile/getUser",
   async (id: string, { rejectWithValue }) => {
     try {
-      const res = await axios(`http://localhost:3000/users/${id}`);
+      const res = await axios(`${BASE_URL}/${id}`);
 
       if (res.data) {
         const user = await res.data;
@@ -51,7 +53,7 @@ export const updateUserProfile = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const res = await axios.patch(`http://localhost:3000/users/${user.id}`, {
+      const res = await axios.patch(`${BASE_URL}/${user.id}`, {
         name: user.name,
         surname: user.surname,
         cellNumber: user.cellNumber,

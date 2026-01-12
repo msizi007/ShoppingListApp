@@ -28,17 +28,19 @@ export default function ListView() {
     }
   }, [shoppingLists]);
 
-  const list = shoppingLists.find((list: any) => list.id === id)!;
+  const list = shoppingLists.find((list: any) => list.id == id)!;
 
   const allItems = useAppSelector((state) => state.items.list);
 
-  const items = allItems.filter((item: any) => item.listId === id);
+  const items = allItems.filter((item: any) => item.listId == id);
 
   const itemCount = items.length;
 
   const filteredItems = useAppSelector((state) => state.items.filterdList);
 
   const [searchKeyWord, setSearchKeyWord] = useState("");
+
+  console.log({ allItems, items, id });
 
   return (
     <div className="d-flex flex-column min-vh-100">

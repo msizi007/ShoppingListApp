@@ -23,6 +23,8 @@ export const initialState: registerState = {
   errorMessage: "",
 };
 
+const BASE_URL = "https://shopping-json-server.onrender.com/users";
+
 export const registerUser = createAsyncThunk(
   "register/registerUser",
   async (user: registerState, { rejectWithValue }) => {
@@ -44,9 +46,7 @@ export const registerUser = createAsyncThunk(
     if (user.password.length < 6)
       return rejectWithValue("Password must be at least 6 characters");
     // if email already exists ... reject
-    const res = await axios.get(
-      `http://localhost:3000/users?email=${user.email}`
-    );
+    const res = await axios.get(`${BASE_URL}/?email=${user.email}`);
     if (res.data.length > 0) {
       return rejectWithValue("Email already exists");
     }
@@ -54,7 +54,7 @@ export const registerUser = createAsyncThunk(
     try {
       const securePassword = await hashPassword(user.password);
       const newUser = { ...user, password: securePassword };
-      const response = await axios.post("http://localhost:3000/users", newUser);
+      const response = await axios.post(BASE_URL, newUser);
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {

@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { getItems } from "../features/itemSlice";
 import { BsSearch } from "react-icons/bs";
 import Footer from "../components/Footer/Footer";
+import type { RootState } from "../../store";
 
 export default function Home() {
   const [isCreating, setIsCreating] = useState(false);
@@ -42,7 +43,9 @@ export default function Home() {
     "Stationery",
   ];
 
-  const shoppingLists = useAppSelector((state) => state.shoppingLists.list);
+  const shoppingLists = useAppSelector(
+    (state: RootState) => state.shoppingLists.list
+  );
 
   // Use a proper state for the initial loading check
   const [isInitialLoad, setIsInitialLoad] = useState(true);
@@ -163,7 +166,6 @@ export default function Home() {
                     dateCreated={list.dateCreated}
                     onDelete={() => {
                       dispatch(deleteShoppingList(list.id));
-                      window.location.reload();
                     }}
                   />
                 );

@@ -19,6 +19,8 @@ export const initialState: loginState = {
   errorMessage: "",
 };
 
+const BASE_URL = "https://shopping-json-server.onrender.com/users";
+
 export const loginUser = createAsyncThunk(
   "login/loginUser",
   async (user: loginState, { rejectWithValue }) => {
@@ -33,7 +35,7 @@ export const loginUser = createAsyncThunk(
       return rejectWithValue("Password must be at least 6 characters");
 
     try {
-      const response = await axios.get(`http://localhost:3000/users`);
+      const response = await axios.get(BASE_URL);
 
       // if response is not empty accept else ... reject
 
