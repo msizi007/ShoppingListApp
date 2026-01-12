@@ -11,7 +11,7 @@
 git clone https://github.com/msizi007/ShoppingListApp.git
 ```
 
-2. Install all node packages using `npm install | npm install`
+2. Install all node packages using `npm install | npm i`
 
 ```bash
 npm install
