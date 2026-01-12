@@ -6,3 +6,20 @@
 - Fix: when i add a new list (empty field) alert sucess message appears... prevent this..
 
 // localhost:5173/items?name=red
+
+
+
+<table className="table table-responsive">
+                            <tr>
+                              <th>Name</th>
+                              <th>Quantity</th>
+                              <th>Date</th>
+                              <th>Actions</th>
+                            </tr>
+                            <tr>
+                              <td>1</td>
+                              <td>1</td>
+                              <td>1</td>
+                              <td>1</td>
+                            </tr>
+                          </table>;

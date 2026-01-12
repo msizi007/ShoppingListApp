@@ -7,72 +7,25 @@
       "cellNumber": "0634673607",
       "email": "msizimwelase007@gmail.com",
       "password": "$2b$10$F4O2jim9CDzJ5jx/q55LOOxdiYVWWCvYXhuEpROLCMV1j/W.o1hiu"
+    },
+    {
+      "id": "bfef",
+      "name": "Msizi",
+      "surname": "Mwelase",
+      "cellNumber": "0123456789",
+      "email": "sbonelomwelase007@gmail.com",
+      "password": "$2b$10$hMhxTvqrP7ZtpA6DWP3oceO0P1x/W1NDVxW3eOHnx/.i1o/Qzuo/y"
     }
   ],
   "lists": [
     {
-      "id": "b2a1",
-      "name": "Stationary Sa January",
-      "description": "uma sekuvulwa izkole ngonyaka ozayo",
-      "category": "Stationery",
-      "userId": "59cd",
-      "dateCreated": "Thu Oct 09 2025 16:02:12 GMT+0200 (South Africa Standard Time)"
-    },
-    {
-      "id": "5719",
-      "name": "Laptop yeskole",
-      "description": "Ngidinga i laptop entsha",
-      "category": "Electronics",
-      "userId": "59cd",
-      "dateCreated": "Thu Oct 09 2025 15:27:05 GMT+0200 (South Africa Standard Time)"
-    },
-    {
-      "id": "5ab3",
-      "name": "December Cloths...",
-      "description": "for festive",
-      "category": "Clothing",
-      "userId": "59cd",
-      "dateCreated": "Thu Oct 09 2025 15:42:33 GMT+0200 (South Africa Standard Time)"
-    },
-    {
-      "id": "e105",
-      "name": "Party ka Dan",
-      "description": "ngomhlaka 22 October",
-      "category": "Party",
-      "userId": "59cd",
-      "dateCreated": "Thu Oct 09 2025 15:49:13 GMT+0200 (South Africa Standard Time)"
-    },
-    {
-      "id": "61f4",
-      "name": "Grocories for November",
-      "description": "R1500 to spend",
+      "id": "e048",
+      "name": "Shopping",
+      "description": "asdfasdfsafdsf",
       "category": "Groceries",
-      "userId": "59cd",
-      "dateCreated": "Thu Oct 09 2025 15:58:41 GMT+0200 (South Africa Standard Time)"
-    },
-    {
-      "id": "a2f2",
-      "name": "Personal Care Products",
-      "description": "Hygiene and Personal Care Products",
-      "category": "Personal Care",
-      "userId": "59cd",
-      "dateCreated": "Thu Oct 09 2025 16:01:54 GMT+0200 (South Africa Standard Time)"
+      "userId": "bfef",
+      "dateCreated": "Mon Jan 12 2026 11:23:46 GMT+0200 (South Africa Standard Time)"
     }
   ],
-  "items": [
-    {
-      "id": "ae22",
-      "name": "Black Pens",
-      "quantity": "12",
-      "listId": "b2a1",
-      "dateCreated": "Thu Oct 09 2025 15:13:22 GMT+0200 (South Africa Standard Time)"
-    },
-    {
-      "id": "06cf",
-      "name": "Rubber",
-      "quantity": "1",
-      "listId": "b2a1",
-      "dateCreated": "Thu Oct 09 2025 15:15:52 GMT+0200 (South Africa Standard Time)"
-    }
-  ]
+  "items": []
 }

@@ -106,15 +106,19 @@ export default function Profile() {
           <button
             className="btn btn-primary mx-2"
             onClick={() => {
-              dispatch(
-                updateUserProfile({
-                  id: userId,
-                  name,
-                  surname,
-                  cellNumber,
-                  email,
-                })
-              );
+              !isNotEditable
+                ? dispatch(
+                    updateUserProfile({
+                      id: userId,
+                      name,
+                      surname,
+                      cellNumber,
+                      email,
+                    })
+                  )
+                : alert(
+                    "Profile cannot be updated. Click the eye icon to enable editing."
+                  );
             }}
           >
             Update

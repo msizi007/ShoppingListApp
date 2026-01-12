@@ -172,6 +172,8 @@ export default function ShoppingListCard(props: Props) {
                 dateCreated: new Date().toString(),
               })
             );
+            setName("");
+            setQuantity("");
             setIsAdding(false);
           }}
         >
@@ -226,6 +228,7 @@ export default function ShoppingListCard(props: Props) {
               setIsEdditing(false);
               setName("");
               setDescription("");
+              window.location.reload();
             }}
           >
             Update

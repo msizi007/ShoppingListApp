@@ -149,6 +149,16 @@ export const shoppingListSlice = createSlice({
     sortByName: (state) => {
       state.list = [...state.list].sort((a, b) => a.name.localeCompare(b.name));
     },
+    sortByCategory: (state) => {
+      state.list = [...state.list].sort((a, b) =>
+        a.category.localeCompare(b.category)
+      );
+    },
+    sortByDate: (state) => {
+      state.list = [...state.list].sort((a, b) =>
+        a.dateCreated.localeCompare(b.dateCreated)
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -188,4 +198,5 @@ export const shoppingListSlice = createSlice({
 
 export default shoppingListSlice.reducer;
 
-export const { sortByName } = shoppingListSlice.actions;
+export const { sortByName, sortByCategory, sortByDate } =
+  shoppingListSlice.actions;

@@ -1,7 +1,7 @@
 import { BsPersonFill } from "react-icons/bs";
 import { FaShoppingCart } from "react-icons/fa";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../reduxHooks";
 import { logoutUser } from "../features/loginSlice";
 
@@ -24,58 +24,63 @@ export default function Navbar({ isLoggedIn }: Props) {
           style={{ cursor: "pointer" }}
         >
           <FaShoppingCart size={30} />
-          <h4 className="mb-0">Shopify</h4>
+          <Link to="/home" style={{ color: "black", textDecoration: "none" }}>
+            <h4 className="mb-0">Shopify</h4>
+          </Link>
         </div>
 
         {/* Right side */}
         <div className="d-flex align-items-center ms-auto position-relative">
-          <button
-            className="btn btn-outline-light me-3"
-            onClick={() => navigate("/privacy")}
-          >
-            Privacy
-          </button>
-
           {isLoggedIn ? (
-            <div className="position-relative">
-              <BsPersonFill
-                size={40}
-                style={{ cursor: "pointer" }}
-                onClick={() => setShowToolTip((prev) => !prev)}
-              />
-              {showToolTip && (
-                <div
-                  className="position-absolute end-0 mt-2 bg-white border rounded shadow-sm p-2 z-3"
-                  style={{ minWidth: "150px" }}
-                >
-                  <button
-                    className="btn btn-sm btn-secondary w-100 mb-2"
-                    onClick={() => {
-                      setShowToolTip(false);
-                      navigate("/profile");
-                    }}
+            <>
+              <div className="position-relative">
+                <BsPersonFill
+                  size={40}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setShowToolTip((prev) => !prev)}
+                />
+                {showToolTip && (
+                  <div
+                    className="position-absolute end-0 mt-2 bg-white border rounded shadow-sm p-2 z-3"
+                    style={{ minWidth: "150px" }}
                   >
-                    View Profile
-                  </button>
-                  <button
-                    className="btn btn-sm btn-secondary w-100"
-                    onClick={() => {
-                      dispatch(logoutUser());
-                      navigate("/");
-                    }}
-                  >
-                    Log out
-                  </button>
-                </div>
-              )}
-            </div>
+                    <button
+                      className="btn btn-sm btn-secondary w-100 mb-2"
+                      onClick={() => {
+                        setShowToolTip(false);
+                        navigate("/profile");
+                      }}
+                    >
+                      View Profile
+                    </button>
+                    <button
+                      className="btn btn-sm btn-secondary w-100"
+                      onClick={() => {
+                        dispatch(logoutUser());
+                        navigate("/");
+                      }}
+                    >
+                      Log out
+                    </button>
+                  </div>
+                )}
+              </div>
+            </>
           ) : (
-            <button
-              className="btn btn-primary"
-              onClick={() => navigate("/login")}
-            >
-              Log in
-            </button>
+            <>
+              <button
+                className="btn btn-outline-light me-3"
+                onClick={() => navigate("/privacy")}
+              >
+                Privacy
+              </button>
+              <button
+                className="btn btn-primary"
+                onClick={() => navigate("/login")}
+              >
+                Log in
+              </button>
+            </>
           )}
         </div>
       </div>
