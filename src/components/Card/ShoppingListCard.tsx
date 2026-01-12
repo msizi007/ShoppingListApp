@@ -6,7 +6,6 @@ import partyImg from "./../../assets/party.jpg";
 import personalCareImg from "./../../assets/personalCare.png";
 import stationeryImg from "./../../assets/stationery.png";
 import {
-  addShoppingList,
   updateShoppingList,
   type Category,
   type shoppingList,
