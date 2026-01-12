@@ -178,6 +178,7 @@ export const shoppingListSlice = createSlice({
         alert("List added successfully");
       })
       .addCase(addShoppingList.rejected, (state, action) => {
+        state.errorMessage = (action.payload as string) || "Lists not found";
         alert(action.payload as string);
       })
       .addCase(deleteShoppingList.fulfilled, (state, action) => {
