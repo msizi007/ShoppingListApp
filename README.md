@@ -1,5 +1,7 @@
 ## Shopping List App
 
+A responsive web application designed to help users manage their shopping tasks efficiently. This project demonstrates core CRUD functionality, state management in React, and integration with a remote RESTful API (json-server) for persistent data storage. Built with a mobile-first approach, it ensures a seamless user experience across all devices.
+
 - Publicly available on: https://shoppinglistapp-3nwt.onrender.com/
 - Backend server available on: https://shopping-json-server.onrender.com/
 
@@ -25,5 +27,6 @@ npm run dev
 
 #### Tech Stack
 
-- ReactJS
+- React (TS)
 - Bootstrap (CSS)
+- JSON Server
