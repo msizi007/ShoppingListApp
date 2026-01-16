@@ -30,3 +30,6 @@ npm run dev
 - React (TS)
 - Bootstrap (CSS)
 - JSON Server
+
+<img width="1916" height="986" alt="image" src="https://github.com/user-attachments/assets/59792f96-d8e6-4244-ad76-15d300b02e59" />
+
