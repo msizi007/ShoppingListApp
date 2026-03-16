@@ -1,4 +1,4 @@
-import styles from "./popup.module.css";
+import styles from "./styles/popup.module.css";
 
 interface Props {
   type: string;

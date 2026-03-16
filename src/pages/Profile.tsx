@@ -1,21 +1,28 @@
 import { BsEyeFill, BsPersonFill } from "react-icons/bs";
-import InputField from "../components/InputField/InputField";
+import InputField from "../components/InputField";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../reduxHooks";
 
-import { getUserProfile, updateUserProfile } from "../features/profileSlice";
-import { getUser } from "../utils/storage";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
+import { getUserProfile, updateUserProfile } from "../features/userSlice";
+import { getLocalUser } from "../utils/storage";
 
 export default function Profile() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  const userId = getUser().id;
+  let userId = getLocalUser()?.id;
 
   useEffect(() => {
-    if (!getUser().isLoggedIn) navigate("/");
+    function getUser() {
+      const user = getLocalUser();
+      if (!user) {
+        navigate("/login");
+      } else {
+        userId = user.id;
+      }
+    }
+    getUser();
   }, []);
 
   useEffect(() => {
@@ -24,26 +31,24 @@ export default function Profile() {
   }, [userId]);
 
   // user state
-  let _name = useAppSelector((state) => state.profile.name);
-  let _surname = useAppSelector((state) => state.profile.surname);
-  const _cellNumber = useAppSelector((state) => state.profile.cellNumber);
-  const _email = useAppSelector((state) => state.profile.email);
+  const user = useAppSelector((state) => state.user.user);
 
   // sync states and store data
   useEffect(() => {
-    if (_name) setName(_name);
-    if (_surname) setSurname(_surname);
-    if (_cellNumber) setCellNumber(_cellNumber);
-    if (_email) setEmail(_email);
-    if (_name && _surname) setFullName(_name + " " + _surname);
-  }, [_name, _surname, _cellNumber, _email]);
+    if (!user) return;
+    setName(user.name);
+    setSurname(user.surname);
+    setFullName(user.name + " " + user.surname);
+    setCellNumber(user.cellNumber);
+    setEmail(user.email);
+  }, [user]);
 
   // states
-  const [name, setName] = useState(_name);
-  const [surname, setSurname] = useState(_surname);
-  const [fullName, setFullName] = useState(_name + " " + _surname);
-  const [cellNumber, setCellNumber] = useState(_cellNumber);
-  const [email, setEmail] = useState(_email);
+  const [name, setName] = useState<string>("");
+  const [surname, setSurname] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [cellNumber, setCellNumber] = useState("");
+  const [email, setEmail] = useState("");
   const [isNotEditable, setNotIsEditable] = useState(true);
 
   return (
@@ -114,10 +119,10 @@ export default function Profile() {
                       surname,
                       cellNumber,
                       email,
-                    })
+                    }),
                   )
                 : alert(
-                    "Profile cannot be updated. Click the eye icon to enable editing."
+                    "Profile cannot be updated. Click the eye icon to enable editing.",
                   );
             }}
           >

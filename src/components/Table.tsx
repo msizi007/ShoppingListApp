@@ -6,13 +6,15 @@ import {
   BsSortUp,
   BsTrashFill,
 } from "react-icons/bs";
-import { deleteItem, updateItem, type Item } from "../../features/itemSlice";
 import { useState } from "react";
-import { sortDate, sortName, sortQuantity } from "../../utils/filterSort";
-import { useAppDispatch } from "../../../reduxHooks";
-import Modal from "../Modal/Modal";
-import InputField from "../InputField/InputField";
-import type { shoppingList } from "../../features/shoppingListSlice";
+import { deleteItem, updateItem, type Item } from "../features/itemSlice";
+import { sortDate, sortName, sortQuantity } from "../utils/filterSort";
+import InputField from "./InputField";
+import Modal from "./Modal";
+import { useAppDispatch } from "../../reduxHooks";
+import type { shoppingList } from "../features/shoppingListSlice";
+
+
 
 interface Props {
   items: Item[];
@@ -161,7 +163,7 @@ export default function Table({ items, list }: Props) {
                             onClick={() => {
                               if (
                                 window.confirm(
-                                  "Are you sure you want to delete?"
+                                  "Are you sure you want to delete?",
                                 )
                               )
                                 dispatch(deleteItem(item.id!));
@@ -207,7 +209,7 @@ export default function Table({ items, list }: Props) {
                 quantity,
                 dateCreated: new Date().toString(),
                 listId: list.id!,
-              })
+              }),
             );
           }}
         >

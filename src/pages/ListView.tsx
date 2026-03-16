@@ -1,23 +1,35 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getShoppingLists } from "../features/shoppingListSlice";
 import { useAppDispatch, useAppSelector } from "../../reduxHooks";
 import { useEffect, useState } from "react";
 import { getItems, searchItems } from "../features/itemSlice";
-import { getUser } from "../utils/storage";
 import { BsSearch } from "react-icons/bs";
-import Tag from "../components/Tag/Tag";
+import Tag from "../components/Tag";
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer/Footer";
-import Table from "../components/Table/Table";
+import Footer from "../components/Footer";
+import Table from "../components/Table";
+import { getLocalUser } from "../utils/storage";
 
 export default function ListView() {
   const { id } = useParams()!;
   const dispatch = useAppDispatch();
   const shoppingLists = useAppSelector((state) => state.shoppingLists.list);
-  const userId = getUser().id;
+  let userId = getLocalUser()?.id;
+  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getShoppingLists(userId));
+    useEffect(() => {
+      function getUser() {
+        const user = getLocalUser();
+        if (!user) {
+          navigate("/login");
+        } else {
+          userId = user.id;
+        }
+      }
+      getUser();
+    });
+    dispatch(getShoppingLists(userId!));
   }, []);
 
   useEffect(() => {
@@ -44,7 +56,7 @@ export default function ListView() {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      <Navbar isLoggedIn={getUser().isLoggedIn} />
+      <Navbar isLoggedIn={userId ? true : false} />
       {list && (
         <>
           <h1 className="text-center mt-5">{list.name} </h1>

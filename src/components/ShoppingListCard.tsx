@@ -1,22 +1,22 @@
 import { BsEyeFill, BsPenFill, BsTrashFill } from "react-icons/bs";
-import clothingImg from "./../../assets/clothing.png";
-import eletronicsImg from "./../../assets/electronicsTech.png";
-import groceriesImg from "./../../assets/groceries.png";
-import partyImg from "./../../assets/party.jpg";
-import personalCareImg from "./../../assets/personalCare.png";
-import stationeryImg from "./../../assets/stationery.png";
+import clothingImg from "./../assets/clothing.png";
+import eletronicsImg from "./../assets/electronicsTech.png";
+import groceriesImg from "./../assets/groceries.png";
+import partyImg from "./../assets/party.jpg";
+import personalCareImg from "./../assets/personalCare.png";
+import stationeryImg from "./../assets/stationery.png";
 import {
   updateShoppingList,
   type Category,
   type shoppingList,
-} from "../../features/shoppingListSlice";
-import Modal from "../Modal/Modal";
+} from "../features/shoppingListSlice";
 import { useState } from "react";
-import InputField from "../InputField/InputField";
-import { useAppDispatch } from "../../../reduxHooks";
-import { addItem } from "../../features/itemSlice";
 import { useNavigate } from "react-router-dom";
-import SingleSelectorTag from "../Tag/SingleSelectorTag";
+import InputField from "./InputField";
+import Modal from "./Modal";
+import { addItem } from "../features/itemSlice";
+import SingleSelectorTag from "./SingleSelectorTag";
+import { useAppDispatch } from "../../reduxHooks";
 
 interface Props {
   id: string;
@@ -130,7 +130,7 @@ export default function ShoppingListCard(props: Props) {
             onClick={() => {
               if (
                 window.confirm(
-                  "Are you sure you want to delete this shopping list?"
+                  "Are you sure you want to delete this shopping list?",
                 )
               )
                 props.onDelete();
@@ -169,7 +169,7 @@ export default function ShoppingListCard(props: Props) {
                 quantity,
                 listId: props.id,
                 dateCreated: new Date().toString(),
-              })
+              }),
             );
             setName("");
             setQuantity("");
@@ -221,7 +221,7 @@ export default function ShoppingListCard(props: Props) {
                   category,
                   userId,
                   dateCreated: new Date().toString(),
-                })
+                }),
               );
               // reset the states
               setIsEdditing(false);

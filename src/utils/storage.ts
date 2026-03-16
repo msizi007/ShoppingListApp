@@ -1,12 +1,9 @@
-interface userState {
-  id: string;
-  isLoggedIn: boolean;
-}
+import type { User } from "../types/User";
 
-export function getUser(): userState {
+export function getLocalUser(): User {
   return JSON.parse(localStorage.getItem("user")!);
 }
 
-export function setUser(user: userState) {
+export function setLocalUser(user: User) {
   localStorage.setItem("user", JSON.stringify(user));
 }

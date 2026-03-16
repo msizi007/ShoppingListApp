@@ -22,7 +22,6 @@ body,
 }
 .body {
   flex: 1;
-  background-image: url("./assets/bg.png");
   background-repeat: no-repeat;
   background-position: bottom right;
   background-size: contain;

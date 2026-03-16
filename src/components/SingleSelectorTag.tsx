@@ -1,4 +1,4 @@
-import type { Category } from "../../features/shoppingListSlice";
+import type { Category } from "../features/shoppingListSlice";
 
 interface Props {
   text: Category;

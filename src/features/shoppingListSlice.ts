@@ -1,35 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import type { ShoppingList } from "../types/ShoppingList";
 
-export type Category =
-  | "Groceries"
-  | "Clothing"
-  | "Electronics"
-  | "Party"
-  | "Personal Care"
-  | "Stationery";
-
-export interface shoppingList {
-  id?: string;
-  name: string;
-  description: string;
-  category: Category;
-  userId: string;
-  dateCreated: string;
-}
-
-interface ShoppingLists {
-  current: shoppingList;
-  list: shoppingList[];
-  filteredList: shoppingList[];
+interface shoppingListState {
+  current: ShoppingList;
+  list: ShoppingList[];
+  filteredList: ShoppingList[];
   errorMessage?: string;
   isLoading: boolean;
 }
 
-export const initialState: ShoppingLists = {
+export const initialState: shoppingListState = {
   list: [],
   filteredList: [],
-  current: {} as shoppingList,
+  current: {} as ShoppingList,
   isLoading: true,
 };
 
@@ -44,13 +28,13 @@ export const getShoppingLists = createAsyncThunk(
       if (res.data) {
         const lists = await res.data;
 
-        return lists.filter((list: shoppingList) => list.userId === userId);
+        return lists.filter((list: ShoppingList) => list.userId === userId);
       }
       return rejectWithValue("Lists not found");
     } catch (error) {
       return rejectWithValue("Lists not found");
     }
-  }
+  },
 );
 
 export const getSingleShoppingList = createAsyncThunk(
@@ -67,13 +51,13 @@ export const getSingleShoppingList = createAsyncThunk(
     } catch (error) {
       return rejectWithValue("Lists not found");
     }
-  }
+  },
 );
 
 // CREATE LIST
 export const addShoppingList = createAsyncThunk(
   "lists/addList",
-  async (list: shoppingList, { rejectWithValue }) => {
+  async (list: ShoppingList, { rejectWithValue }) => {
     if (!list.name || !list.description) {
       return rejectWithValue("All input fields are required.");
     }
@@ -83,7 +67,7 @@ export const addShoppingList = createAsyncThunk(
     } catch (error) {
       return rejectWithValue("Lists not found");
     }
-  }
+  },
 );
 
 // DELETE LIST
@@ -96,12 +80,12 @@ export const deleteShoppingList = createAsyncThunk(
     } catch (error) {
       return rejectWithValue("Lists not found");
     }
-  }
+  },
 );
 
 export const updateShoppingList = createAsyncThunk(
   "lists/updateList",
-  async (list: shoppingList, { rejectWithValue }) => {
+  async (list: ShoppingList, { rejectWithValue }) => {
     console.log(list.id);
 
     try {
@@ -112,12 +96,12 @@ export const updateShoppingList = createAsyncThunk(
     } catch (error) {
       return rejectWithValue("Lists not found");
     }
-  }
+  },
 );
 
 // SEARCH
-async function findKeyword(data: shoppingList[], keyword: string) {
-  return data.filter((list: shoppingList) => {
+async function findKeyword(data: ShoppingList[], keyword: string) {
+  return data.filter((list: ShoppingList) => {
     return list.name.toLowerCase().includes(keyword.toLowerCase());
   });
 }
@@ -138,7 +122,7 @@ export const searchShoppingList = createAsyncThunk(
     } catch (error) {
       return rejectWithValue("Lists not found");
     }
-  }
+  },
 );
 
 export const shoppingListSlice = createSlice({
@@ -150,12 +134,12 @@ export const shoppingListSlice = createSlice({
     },
     sortByCategory: (state) => {
       state.list = [...state.list].sort((a, b) =>
-        a.category.localeCompare(b.category)
+        a.category.localeCompare(b.category),
       );
     },
     sortByDate: (state) => {
       state.list = [...state.list].sort((a, b) =>
-        a.dateCreated.localeCompare(b.dateCreated)
+        a.dateCreated.localeCompare(b.dateCreated),
       );
     },
   },
@@ -198,7 +182,7 @@ export const shoppingListSlice = createSlice({
         state.errorMessage = (action.payload as string) || "Lists not found";
       })
       .addCase(updateShoppingList.fulfilled, (state, action) => {
-        state.list = state.list.map((list: shoppingList) => {
+        state.list = state.list.map((list: ShoppingList) => {
           if (list.id === action.payload.id) {
             return action.payload;
           }

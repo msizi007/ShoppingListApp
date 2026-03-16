@@ -1,4 +1,4 @@
-import type { Filter } from "../components/Table/Table";
+import type { Filter } from "../components/Table";
 import type { Item } from "../features/itemSlice";
 
 export function sortName(items: Item[], filter: Filter) {
@@ -21,12 +21,12 @@ export function sortDate(items: Item[], filter: Filter) {
   if (filter === "ASC")
     return items.sort(
       (a, b) =>
-        new Date(a.dateCreated).getTime() - new Date(b.dateCreated).getTime()
+        new Date(a.dateCreated).getTime() - new Date(b.dateCreated).getTime(),
     );
   if (filter === "DESC")
     return items.sort(
       (a, b) =>
-        new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
+        new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime(),
     );
   return items;
 }

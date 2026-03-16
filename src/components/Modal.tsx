@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import styles from "./modal.module.css";
+import styles from "./styles/modal.module.css";
 
 interface Props {
   children: ReactNode;

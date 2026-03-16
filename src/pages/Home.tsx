@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import Modal from "../components/Modal/Modal";
-import InputField from "../components/InputField/InputField";
+import Modal from "../components/Modal";
+import InputField from "../components/InputField";
 import { useAppDispatch, useAppSelector } from "../../reduxHooks";
 import {
   addShoppingList,
-  type Category,
   deleteShoppingList,
   getShoppingLists,
   searchShoppingList,
@@ -13,14 +12,15 @@ import {
   sortByDate,
   sortByName,
 } from "../features/shoppingListSlice";
-import { getUser } from "../utils/storage";
-import ShoppingListCard from "../components/Card/ShoppingListCard";
-import SingleSelectorTag from "../components/Tag/SingleSelectorTag";
 import { useNavigate } from "react-router-dom";
 import { getItems } from "../features/itemSlice";
 import { BsSearch } from "react-icons/bs";
-import Footer from "../components/Footer/Footer";
+import Footer from "../components/Footer";
 import type { RootState } from "../../store";
+import ShoppingListCard from "../components/ShoppingListCard";
+import SingleSelectorTag from "../components/SingleSelectorTag";
+import { getLocalUser } from "../utils/storage";
+import type { Category } from "../types/ShoppingList";
 
 export default function Home() {
   const [isCreating, setIsCreating] = useState(false);
@@ -32,7 +32,7 @@ export default function Home() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   // Ensure getUser().id is safely accessed
-  const userId = getUser()?.id;
+  let userId = getLocalUser()?.id;
 
   const tags: Category[] = [
     "Groceries",
@@ -44,15 +44,27 @@ export default function Home() {
   ];
 
   const shoppingLists = useAppSelector(
-    (state: RootState) => state.shoppingLists.list
+    (state: RootState) => state.shoppingLists.list,
   );
+
+  useEffect(() => {
+    function getUser() {
+      const user = getLocalUser();
+      if (!user) {
+        navigate("/login");
+      } else {
+        userId = user.id;
+      }
+    }
+    getUser();
+  }, []);
 
   // Use a proper state for the initial loading check
   const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   // Effect 1: Check login and fetch lists initially
   useEffect(() => {
-    if (!getUser()?.isLoggedIn) {
+    if (!getLocalUser()) {
       navigate("/");
     } else if (userId) {
       dispatch(getShoppingLists(userId)).then(() => {
@@ -72,7 +84,7 @@ export default function Home() {
 
   const items = useAppSelector((state) => state.items.list);
   const filteredList = useAppSelector(
-    (state) => state.shoppingLists.filteredList
+    (state) => state.shoppingLists.filteredList,
   );
 
   const handleAddList = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -86,7 +98,7 @@ export default function Home() {
         category,
         userId,
         dateCreated: new Date().toString(),
-      })
+      }),
     );
     // reset the states and close modal
     setIsCreating(false);
@@ -150,7 +162,7 @@ export default function Home() {
             {(searchKeyWord.length > 0 ? filteredList : shoppingLists).map(
               (list: any) => {
                 const itemCount = items.filter(
-                  (item: any) => item.listId === list.id
+                  (item: any) => item.listId === list.id,
                 ).length;
 
                 return (
@@ -169,7 +181,7 @@ export default function Home() {
                     }}
                   />
                 );
-              }
+              },
             )}
           </div>
         ) : (

@@ -7,6 +7,7 @@ import Profile from "./pages/Profile";
 import LandingPage from "./pages/LandingPage";
 import ListView from "./pages/ListView";
 import Privacy from "./pages/Privacy";
+import NotFoundPage from "./pages/NotFound404";
 
 function App() {
   return (
@@ -14,12 +15,12 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/privacy" element={<Privacy />} />
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/privacy" element={<Privacy />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/listView/:id" element={<ListView />} />
-        <Route path="*" element={<h1>Page Not Found</h1>} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
   );

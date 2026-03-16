@@ -1,27 +1,21 @@
-import { useNavigate } from "react-router-dom";
-import Footer from "../components/Footer/Footer";
+import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import Hero from "../components/Hero";
+import FeatureSection from "../components/FeatureSection";
+import PreviewSection from "../components/PreviewSection";
 
 export default function LandingPage() {
-  const navigate = useNavigate();
+
   return (
-    <div className="landingPage">
+    <div className="min-vh-100 d-flex flex-column bg-light">
       <Navbar isLoggedIn={false} />
-      <div className="body mt-5">
-        <div className="content">
-          <h1 className="mt-5 text-center title">Simplify Your Shopping</h1>
-          <h4 className="text-center sub-title">
-            The easiest way to create, manage, and share your grocery lists.
-          </h4>
-          <button
-            className="signup-button"
-            onClick={() => navigate("/register")}
-          >
-            Get Started
-          </button>
-        </div>
+
+      <Hero />
+      <PreviewSection />
+
+      <div className="mt-auto">
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 }
