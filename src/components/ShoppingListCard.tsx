@@ -5,11 +5,7 @@ import groceriesImg from "./../assets/groceries.png";
 import partyImg from "./../assets/party.jpg";
 import personalCareImg from "./../assets/personalCare.png";
 import stationeryImg from "./../assets/stationery.png";
-import {
-  updateShoppingList,
-  type Category,
-  type shoppingList,
-} from "../features/shoppingListSlice";
+import { updateShoppingList } from "../features/shoppingListSlice";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InputField from "./InputField";
@@ -17,6 +13,7 @@ import Modal from "./Modal";
 import { addItem } from "../features/itemSlice";
 import SingleSelectorTag from "./SingleSelectorTag";
 import { useAppDispatch } from "../../reduxHooks";
+import type { Category, ShoppingList } from "../types/ShoppingList";
 
 interface Props {
   id: string;
@@ -26,7 +23,7 @@ interface Props {
   description: string;
   category: Category;
   dateCreated: Date;
-  list: shoppingList[];
+  list: ShoppingList[];
   onDelete: () => void;
 }
 

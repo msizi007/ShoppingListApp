@@ -93,7 +93,7 @@ export const loginUser = createAsyncThunk(
         if (foundUser) return foundUser;
         else return rejectWithValue("Invalid username or password");
       } else {
-        return rejectWithValue("User not found!");
+        return rejectWithValue("Invalid username or password!");
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
