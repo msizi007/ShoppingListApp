@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../reduxHooks";
 import { logout } from "../features/userSlice";
+import { removeLocalUser } from "../utils/storage";
 
 interface Props {
   isLoggedIn: boolean;
@@ -18,6 +19,7 @@ export default function Navbar({ isLoggedIn }: Props) {
   const handleLogout = () => {
     setShowToolTip(false);
     dispatch(logout());
+    removeLocalUser();
     navigate("/");
   };
 

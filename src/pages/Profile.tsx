@@ -7,11 +7,14 @@ import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { getUserProfile, updateUserProfile } from "../features/userSlice";
 import { getLocalUser } from "../utils/storage";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store";
 
 export default function Profile() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   let userId = getLocalUser()?.id;
+  const { user } = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     function getUser() {
@@ -29,9 +32,6 @@ export default function Profile() {
     if (!userId) return;
     dispatch(getUserProfile(userId));
   }, [userId]);
-
-  // user state
-  const user = useAppSelector((state) => state.user.user);
 
   // sync states and store data
   useEffect(() => {

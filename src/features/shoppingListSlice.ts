@@ -86,11 +86,9 @@ export const deleteShoppingList = createAsyncThunk(
 export const updateShoppingList = createAsyncThunk(
   "lists/updateList",
   async (list: ShoppingList, { rejectWithValue }) => {
-    console.log(list.id);
 
     try {
       const res = await axios.put(`${BASE_URL}/${list.id}`, list);
-      console.log(res.data, list.id);
 
       return res.data;
     } catch (error) {
@@ -114,7 +112,6 @@ export const searchShoppingList = createAsyncThunk(
 
       if (res.data) {
         const lists = await findKeyword(res.data, name);
-        console.log(lists);
 
         return lists;
       }

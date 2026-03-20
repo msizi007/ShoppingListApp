@@ -18,17 +18,15 @@ export default function ListView() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    useEffect(() => {
-      function getUser() {
-        const user = getLocalUser();
-        if (!user) {
-          navigate("/login");
-        } else {
-          userId = user.id;
-        }
+    function getUser() {
+      const user = getLocalUser();
+      if (!user) {
+        navigate("/login");
+      } else {
+        userId = user.id;
       }
-      getUser();
-    });
+    }
+    getUser();
     dispatch(getShoppingLists(userId!));
   }, []);
 
@@ -52,7 +50,6 @@ export default function ListView() {
 
   const [searchKeyWord, setSearchKeyWord] = useState("");
 
-  console.log({ allItems, items, id });
 
   return (
     <div className="d-flex flex-column min-vh-100">

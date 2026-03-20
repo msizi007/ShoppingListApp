@@ -6,7 +6,7 @@ import { FaEnvelope, FaLock } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../store";
 import { loginUser } from "../features/userSlice";
-import { setLocalUser } from "../utils/storage";
+import { getLocalUser, setLocalUser } from "../utils/storage";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -19,7 +19,13 @@ export default function Login() {
   );
 
   useEffect(() => {
-    console.log(300, user);
+    const user = getLocalUser();
+    if (user) {
+      navigate("/home");
+    }
+  }, []);
+
+  useEffect(() => {
 
     if (user) {
       setLocalUser(user);

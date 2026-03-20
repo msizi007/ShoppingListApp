@@ -91,7 +91,6 @@ export const searchItems = createAsyncThunk(
   async (name: string, { rejectWithValue }) => {
     try {
       const res = await axios(BASE_URL);
-      console.log(res.data);
 
       if (res.data) {
         const items = await findKeyword(res.data, name);

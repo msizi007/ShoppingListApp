@@ -7,3 +7,8 @@ export function getLocalUser(): User {
 export function setLocalUser(user: User) {
   localStorage.setItem("user", JSON.stringify(user));
 }
+
+
+export function removeLocalUser() {
+  localStorage.removeItem("user");
+}

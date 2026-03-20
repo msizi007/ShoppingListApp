@@ -188,6 +188,18 @@ export const userSlice = createSlice({
       state.error = action.payload as string;
       state.loading = false;
     });
+
+    builder.addCase(getUserProfile.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.loading = false;
+    });
+    builder.addCase(getUserProfile.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(getUserProfile.rejected, (state, action) => {
+      state.error = action.payload as string;
+      state.loading = false;
+    });
   },
 });
 
