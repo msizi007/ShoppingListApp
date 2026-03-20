@@ -1,7 +1,7 @@
 import { BsEyeFill, BsPersonFill } from "react-icons/bs";
 import InputField from "../components/InputField";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../reduxHooks";
+import { useAppDispatch } from "../../reduxHooks";
 
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";

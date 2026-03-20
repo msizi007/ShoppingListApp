@@ -12,13 +12,11 @@ import { sortDate, sortName, sortQuantity } from "../utils/filterSort";
 import InputField from "./InputField";
 import Modal from "./Modal";
 import { useAppDispatch } from "../../reduxHooks";
-import type { shoppingList } from "../features/shoppingListSlice";
-
-
+import type { ShoppingList } from "../types/ShoppingList";
 
 interface Props {
   items: Item[];
-  list: shoppingList;
+  list: ShoppingList;
 }
 
 export type Filter = "ASC" | "DESC";
